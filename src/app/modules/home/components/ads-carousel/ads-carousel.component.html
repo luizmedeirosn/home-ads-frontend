@@ -4,7 +4,7 @@
         styleClass="shadow-3 border-round-xl"
         header="Em destaque"
     >
-        <p-carousel [value]="ads" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
+        <p-carousel [value]="ads" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="6000">
             <ng-template let-ad pTemplate="item">
                 <div class="ad-card shadow-2 m-2 text-center py-5 px-3">
                     <div class="mb-3">
@@ -12,7 +12,7 @@
                     </div>
                     <div>
                         <h3 class="mb-1 ">{{ ad.name }}</h3>
-                        <h3 class="mt-0 mb-3 text-green-900">{{ ad.price | currency: "BRL" }}</h3>
+                        <h3 class="mt-0 mb-3 text-green-700">{{ ad.price | currency: "BRL" }}</h3>
                         <p-rating
                             [(ngModel)]="ads.at(ads.indexOf(ad))?.rating || ratingDefaultValue"
                             [readonly]="true"
