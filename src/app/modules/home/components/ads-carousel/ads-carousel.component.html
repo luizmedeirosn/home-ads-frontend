@@ -1,20 +1,39 @@
-<div class="card">
-    <p-carousel [value]="products" [numVisible]="4" [numScroll]="4" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
-        <ng-template let-product pTemplate="item">
-            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
-                <div class="mb-3">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-10 shadow-3" />
-                </div>
-                <div>
-                    <h3 class="mb-1">{{ product.name }}</h3>
-                    <h3 class="mt-0 mb-3">{{ '$' + product.price }}</h3>
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                    <div class="car-buttons mt-5">
-                        <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
-                        <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
+<div class="flex justify-content-center mt-4">
+    <p-card
+        [style]="{ 'min-width': '90rem', 'max-width': '90rem', 'height': '95%' }"
+        styleClass="shadow-3 border-round-xl"
+        header="Em destaque"
+    >
+        <p-carousel [value]="ads" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
+            <ng-template let-ad pTemplate="item">
+                <div class="ad-card shadow-2 m-2 text-center py-5 px-3">
+                    <div class="mb-3">
+                        <img src="../../../../services/{{ ad.image }}" [alt]="ad.name" class="image-card" />
+                    </div>
+                    <div>
+                        <h3 class="mb-1 ">{{ ad.name }}</h3>
+                        <h3 class="mt-0 mb-3 text-green-900">{{ ad.price | currency: "BRL" }}</h3>
+                        <p-rating
+                            [(ngModel)]="ads.at(ads.indexOf(ad))?.rating || ratingDefaultValue"
+                            [readonly]="true"
+                            [cancel]="false"
+                            [stars]="10"
+                        ></p-rating>
+                        <div class="flex justify-content-center align-items-center text-lg font-medium gap-2">
+                            <fa-icon [icon]="faCategoryIcon" size="lg" [styles]="{color: 'var(--gray-900)'}"></fa-icon>
+                            <span>{{ ad.category }}</span>
+                        </div>
+                        <div class="car-buttons mt-5">
+                            <p-button
+                                type="button"
+                                label="Mais informações"
+                                styleClass="p-button p-button-rounded mr-2 gap-2 align-items-center">
+                                <fa-icon [icon]="faSearchIcon" size="lg"></fa-icon>
+                            </p-button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ng-template>
-    </p-carousel>
+            </ng-template>
+        </p-carousel>
+    </p-card>
 </div>
