@@ -8,10 +8,13 @@ import { SharedModule } from '../shared/shared.module';
 
 import { AdsCarouselComponent } from './components/ads-carousel/ads-carousel.component';
 
-
+import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -22,12 +25,19 @@ import { TagModule } from 'primeng/tag';
   imports: [
     CommonModule,
     RouterModule.forChild(HOME_ROUTES),
+    FormsModule,
+    ReactiveFormsModule,
 
     SharedModule,
 
+    FontAwesomeModule,
+
+    CardModule,
     CarouselModule,
-    TagModule,
     ButtonModule,
+    RatingModule,
+    InputNumberModule,
+
   ]
 })
 export class HomeModule { }

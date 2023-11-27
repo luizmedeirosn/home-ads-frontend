@@ -13,7 +13,7 @@ body {
 
 img, svg {
     filter: brightness(1.0) contrast(1.0) saturate(1.2) grayscale(5%);
-    image-rendering: optimizeQuality !important;
+    image-rendering: -webkit-optimize-contrast !important;
 }
 
 svg {
@@ -38,4 +38,30 @@ text, span {
         border-radius: 10px;
         background-color: var(--blue-2);
     }
+}
+
+.p-card-title {
+    font-size: 2rem !important;
+}
+
+.p-link {
+    border-radius: 6px;
+}
+
+.ad-card {
+    border-radius: 10px;
+    &:hover {
+        border: solid;
+        border-color: var(--blue-1);
+    }
+}
+
+.image-card {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 10px !important;
+}
+
+.p-rating-icon {
+    color: var(--yellow-500);
 }
