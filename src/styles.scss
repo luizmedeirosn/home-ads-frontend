@@ -41,7 +41,12 @@ text, span {
 }
 
 .p-card-title {
-    font-size: 2rem !important;
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+.carousel-prev-icon {
+    color: var(--black-1);
 }
 
 .p-link {

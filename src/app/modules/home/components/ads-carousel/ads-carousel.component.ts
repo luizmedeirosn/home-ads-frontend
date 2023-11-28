@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AdData } from 'src/app/models/interfaces/AdData';
 import { IconDefinition, faTag, faSearch } from '@fortawesome/free-solid-svg-icons';
 

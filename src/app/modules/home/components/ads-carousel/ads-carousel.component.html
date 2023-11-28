@@ -1,12 +1,12 @@
 <div class="flex justify-content-center mt-2">
     <p-card
         [style]="{ 'min-width': '90rem', 'max-width': '90rem', 'height': '95%' }"
-        styleClass="shadow-3 border-round-lg"
+        styleClass="shadow-none"
         header="Em destaque"
     >
-        <p-carousel [value]="ads" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="6000">
+        <p-carousel [value]="ads" [numVisible]="4" [numScroll]="4" [circular]="true" [showNavigators]="false" [responsiveOptions]="responsiveOptions" [autoplayInterval]="6000">
             <ng-template let-ad pTemplate="item">
-                <div class="shadow-1 m-2 text-center py-3 px-1 border-round-lg">
+                <div class="shadow-3 m-3 py-3 text-center border-round-lg">
                     <div class="mb-3">
                         <img src="../../../../services/{{ ad.image }}" [alt]="ad.name" class="image-card" />
                     </div>
@@ -17,7 +17,7 @@
                             [(ngModel)]="ads.at(ads.indexOf(ad))?.rating || ratingDefaultValue"
                             [readonly]="true"
                             [cancel]="false"
-                            [stars]="10"
+                            [stars]="5"
                         ></p-rating>
                         <div class="flex justify-content-center align-items-center text-lg font-medium gap-2">
                             <fa-icon [icon]="faCategoryIcon" size="lg" [styles]="{color: 'var(--gray-900)'}"></fa-icon>
