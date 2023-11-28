@@ -48,17 +48,17 @@ text, span {
     border-radius: 6px;
 }
 
-.ad-card {
-    border-radius: 10px;
-    &:hover {
-        border: solid;
-        border-color: var(--blue-1);
-    }
+.p-card-content {
+    padding: 0;
+}
+
+.p-card-body {
+    padding: 1rem;
 }
 
 .image-card {
-    width: 200px !important;
-    height: 200px !important;
+    width: 170px !important;
+    height: 170px !important;
     border-radius: 10px !important;
 }
 

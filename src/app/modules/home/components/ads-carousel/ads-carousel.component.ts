@@ -6,7 +6,6 @@ import { IconDefinition, faTag, faSearch } from '@fortawesome/free-solid-svg-ico
   selector: 'app-ads-carousel',
   templateUrl: './ads-carousel.component.html',
   styleUrls: [],
-  encapsulation: ViewEncapsulation.None
 })
 export class AdsCarouselComponent {
 
