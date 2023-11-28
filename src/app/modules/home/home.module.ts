@@ -7,6 +7,9 @@ import { HOME_ROUTES } from './home.routing';
 import { SharedModule } from '../shared/shared.module';
 
 import { AdsCarouselComponent } from './components/ads-carousel/ads-carousel.component';
+import { HomeDescriptionComponent } from './components/home-description/home-description.component';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
@@ -14,13 +17,16 @@ import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { TimelineModule } from 'primeng/timeline';
+
 
 
 @NgModule({
   declarations: [
     HomePageComponent,
-    AdsCarouselComponent
+    AdsCarouselComponent,
+    HomeDescriptionComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +43,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ButtonModule,
     RatingModule,
     InputNumberModule,
-
+    AnimateOnScrollModule,
+    TimelineModule,
   ]
 })
 export class HomeModule { }

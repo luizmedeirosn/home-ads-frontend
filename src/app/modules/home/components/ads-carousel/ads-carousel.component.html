@@ -1,18 +1,18 @@
-<div class="flex justify-content-center mt-4">
+<div class="flex justify-content-center mt-2">
     <p-card
         [style]="{ 'min-width': '90rem', 'max-width': '90rem', 'height': '95%' }"
-        styleClass="shadow-3 border-round-xl"
+        styleClass="shadow-3 border-round-lg"
         header="Em destaque"
     >
         <p-carousel [value]="ads" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="6000">
             <ng-template let-ad pTemplate="item">
-                <div class="ad-card shadow-2 m-2 text-center py-5 px-3">
+                <div class="shadow-1 m-2 text-center py-3 px-1 border-round-lg">
                     <div class="mb-3">
                         <img src="../../../../services/{{ ad.image }}" [alt]="ad.name" class="image-card" />
                     </div>
                     <div>
                         <h3 class="mb-1 ">{{ ad.name }}</h3>
-                        <h3 class="mt-0 mb-3 text-green-700">{{ ad.price | currency: "BRL" }}</h3>
+                        <h3 class="mt-0 mb-3 text-green-700">Preço médio: {{ ad.price | currency: "BRL" }}</h3>
                         <p-rating
                             [(ngModel)]="ads.at(ads.indexOf(ad))?.rating || ratingDefaultValue"
                             [readonly]="true"
@@ -23,11 +23,11 @@
                             <fa-icon [icon]="faCategoryIcon" size="lg" [styles]="{color: 'var(--gray-900)'}"></fa-icon>
                             <span>{{ ad.category }}</span>
                         </div>
-                        <div class="car-buttons mt-5">
+                        <div class="car-buttons mt-3">
                             <p-button
                                 type="button"
                                 label="Mais informações"
-                                styleClass="p-button p-button-rounded mr-2 gap-2 align-items-center">
+                                styleClass="p-button p-button-rounded mr-2 gap-2 align-items-center bg-indigo-800 hover:bg-indigo-900">
                                 <fa-icon [icon]="faSearchIcon" size="lg"></fa-icon>
                             </p-button>
                         </div>
