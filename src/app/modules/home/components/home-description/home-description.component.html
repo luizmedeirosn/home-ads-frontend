@@ -1,32 +1,39 @@
-<div class="flex flex-column align-items-center ml-3 mr-3 gap-3 zoomin animation-duration-2000 animation-iteration-1 animation-ease-in-out">
-    <div class="flex flex-column align-items-center gap-2">
-        <span class="text-2xl font-medium">Explore nossa plataforma e descubra opiniões autênticas sobre uma gama de produtos para o seu lar...</span>
-        <span class="slidedown h-2rem w-2rem bg-indigo-800 border-circle inline-flex align-items-center justify-content-center">
-            <fa-icon [icon]="faArrowDownIcon"></fa-icon>
-        </span>
-    </div>
+<div class="flex justify-content-center">
+    <p-card
+        [style]="{ 'min-width':'90rem', 'max-width':'90rem' }"
+        styleClass="shadow-none"
+    >
+        <div class="flex flex-column align-items-center gap-3 zoomin animation-duration-2000 animation-iteration-1 animation-ease-in-out">
+            <div class="flex flex-column align-items-center gap-2">
+                <span class="text-2xl font-medium">Explore nossa plataforma e descubra opiniões autênticas sobre uma gama de produtos para o seu lar...</span>
+                <span class="slidedown h-2rem w-2rem bg-indigo-800 border-circle inline-flex align-items-center justify-content-center">
+                    <fa-icon [icon]="faArrowDownIcon"></fa-icon>
+                </span>
+            </div>
 
-    <div pAnimateOnScroll enterClass="zoomin" leaveClass="fadeout" class="flex flex-column align-items-center m-3 border-round text-justify animation-duration-3000 animation-ease-in-out mt-6">
-        <h3 class="ml-3 mr-3 mb-2 text-xl">Registre-se agora e faça parte da nossa comunidade</h3>
-        <span class="ml-3 mr-3 mb-3 text-lg">Bem-vindo ao nosso portal de avaliação de produtos! Somos uma plataforma dedicada a proporcionar uma experiência abrangente para consumidores que desejam compartilhar suas opiniões sobre produtos. Aqui, você pode cadastrar anúncios dos mais variados tipos, desde eletrodomésticos até ferramentas, e contribuir para a formação de uma comunidade informada sobre a qualidade dos produtos disponíveis para a sua casa.</span>
-        <div class="card">
-            <p-timeline [value]="events" align="alternate" styleClass="m-3 gap-3">
-                <ng-template pTemplate="marker" let-event>
-                    <span class="h-3rem w-3rem shadow-3 flex justify-content-center align-items-center" [style.backgroundColor]="event.color">
-                        <fa-icon [icon]="event.icon" [size]="'xl'"></fa-icon>
-                    </span>
-                </ng-template>
-                <ng-template pTemplate="content" let-event>
-                    <p-card [header]="event.category">
-                        <p class="text-justify">
-                            {{ event.description }}
-                        </p>
-                    </p-card>
-                </ng-template>
-            </p-timeline>
-            <div class="flex justify-content-center mt-3">
-                <p-button label="Cadastre-se" styleClass="p-button-success" class="slidedown"></p-button>
+            <div pAnimateOnScroll enterClass="zoomin" leaveClass="fadeout" class="flex flex-column align-items-center border-round text-justify animation-duration-3000 animation-ease-in-out mt-6">
+                <h3 class="ml-3 mr-3 mb-2 text-xl">Registre-se agora e faça parte da nossa comunidade</h3>
+                <span class="ml-3 mr-3 mb-3 text-lg">Bem-vindo ao nosso portal de avaliação de produtos! Somos uma plataforma dedicada a proporcionar uma experiência abrangente para consumidores que desejam compartilhar suas opiniões sobre produtos. Aqui, você pode cadastrar anúncios dos mais variados tipos, desde eletrodomésticos até ferramentas, e contribuir para a formação de uma comunidade informada sobre a qualidade dos produtos disponíveis para a sua casa.</span>
+                <div class="card">
+                    <p-timeline [value]="events" align="alternate" styleClass="m-3 gap-3">
+                        <ng-template pTemplate="marker" let-event>
+                            <span class="h-3rem w-3rem shadow-3 flex justify-content-center align-items-center" [style.backgroundColor]="event.color">
+                                <fa-icon [icon]="event.icon" [size]="'xl'"></fa-icon>
+                            </span>
+                        </ng-template>
+                        <ng-template pTemplate="content" let-event>
+                            <p-card [header]="event.category">
+                                <p class="text-justify">
+                                    {{ event.description }}
+                                </p>
+                            </p-card>
+                        </ng-template>
+                    </p-timeline>
+                    <div class="flex justify-content-center mt-3">
+                        <p-button label="Cadastre-se" styleClass="p-button-success mb-6" class="slidedown"></p-button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </p-card>
 </div>

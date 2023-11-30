@@ -1,1 +1,65 @@
-<p>about-us-description works!</p>
+<div class="flex flex-column align-items-center">
+    <p-card
+        styleClass="shadow-none m-3 zoomin animation-duration-2000 animation-iteration-1 animation-ease-in-out"
+        [style]="{ 'min-width':'90rem', 'max-width':'90rem' }"
+        header="Conheça como surgiu a HomeAds"
+    >
+        <div class="flex justify-content-center align-items-center m-3 gap-3">
+            <img class="ifpb-image" src="../../../../../assets/about-us/ifpb.jpg" alt="ifpb">
+            <span class="text-xl m-3">
+                <h2>Nossa história</h2>
+                <p>
+                    A HomeAds nasceu a partir de uma iniciativa inovadora nascida no Instituto Federal da Paraíba (IFPB). Fundada pelos alunos Luiz Medeiros e Josehylton Ricardo, a HomeAds não apenas ganhou destaque, mas também se tornou uma fonte confiável de conhecimento profundo sobre produtos domésticos.
+                </p>
+                <p>
+                    Em nossa jornada empreendedora, focamos em proporcionar conforto aos lares das pessoas, orientando os consumidores por meio de anúncios perspicazes para que possam tomar as melhores decisões ao adquirir produtos para suas casas.  Destacamos ainda que nossa ferramenta vai além, fornecendo uma média de preços para produtos em diversas categorias, como cama, mesa e banho, móveis, eletrodomésticos e ferramentas. Além disso, avaliações são cuidadosamente disponibilizadas, permitindo que os usuários tenham uma visão completa sobre a qualidade e satisfação de outros consumidores.
+                </p>
+                <p>
+                    Estamos aqui para transformar sua experiência de compras de produtos domésticos, proporcionando conforto, confiança e informações valiosas em cada escolha que  você faz.
+                </p>
+            </span>
+        </div>
+    </p-card>
+    <div
+        pAnimateOnScroll enterClass="zoomin" leaveClass="fadeout"
+        class="flex justify-content-center align-items-center mt-3 animation-duration-3000 animation-iteration-1 animation-ease-in-out"
+    >
+        <p-card
+            styleClass="shadow-none m-3 text-center"
+            [style]="{ 'min-width':'90rem', 'max-width':'90rem' }"
+            header="Nossa equipe"
+        >
+            <div class="flex justify-content-center align-items-center mt-3">
+                <div class="flex flex-column align-items-center m-3 gap-3">
+                    <img class="profile-picture" src="../../../../../assets/about-us/luiz.jpeg" alt="Luiz">
+                    <div class="flex flex-column align-items-center">
+                        <span class="text-2xl font-bold">Luiz Medeiros</span>
+                        <span class="text-xl">Co-Fundador da HomeAds</span>
+                        <span class="text-xl">Engenheiro de Software</span>
+                    </div>
+
+                </div>
+
+                <div class="flex flex-column align-items-center m-3 gap-3">
+                    <img class="profile-picture" src="../../../../../assets/about-us/ricardo.jpeg" alt="Ricardo">
+                    <div class="flex flex-column align-items-center">
+                        <span class="text-2xl font-bold">Josehylton Ricardo</span>
+                        <span class="text-xl">Co-Fundador da HomeAds</span>
+                        <span class="text-xl">Engenheiro de Software</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-column align-items-center m-3 gap-3">
+                    <img class="profile-picture" src="../../../../../assets/about-us/danyllo.jpg" alt="Ricardo">
+                    <div class="flex flex-column align-items-center">
+                        <span class="text-2xl font-bold">Danyllo Albuquerque</span>
+                        <span class="text-xl">Co-Fundador da HomeAds</span>
+                        <span class="text-xl">Professor no IFPB</span>
+                        <span class="text-xl">Analista de Qualidade</span>
+                    </div>
+                </div>
+            </div>
+        </p-card>
+    </div>
+</div>
+
