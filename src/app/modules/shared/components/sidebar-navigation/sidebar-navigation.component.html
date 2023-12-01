@@ -57,16 +57,13 @@
         <p-button
             styleClass="sidebar-button-color text-xl border-none"
             label="Home"
-            routerLink="/home"
-            routerLinkActive="exact_route"
-
+            (onClick)="goToRouteAndReload('/home')"
         ></p-button>
 
         <p-button
             styleClass="sidebar-button-color text-xl border-none"
             label="Quem somos"
-            routerLink="/about-us"
-            routerLinkActive="exact_route"
+            (onClick)="goToRouteAndReload('/about-us')"
         ></p-button>
     </div>
 </div>

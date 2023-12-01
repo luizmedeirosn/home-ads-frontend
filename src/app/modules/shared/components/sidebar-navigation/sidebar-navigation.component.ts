@@ -1,13 +1,22 @@
 import { Component } from '@angular/core';
-import { IconDefinition, faRightToBracket, faUserPlus, faBars, faBullhorn, faPhoneVolume, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import {
+    IconDefinition,
+    faBars,
+    faBullhorn,
+    faPhoneVolume,
+    faRightFromBracket,
+    faRightToBracket,
+    faUserPlus,
+} from '@fortawesome/free-solid-svg-icons';
+import { ReloadService } from 'src/app/services/reload/reload-service.service';
 
 @Component({
     selector: 'app-sidebar-navigation',
     templateUrl: './sidebar-navigation.component.html',
-    styleUrls: []
+    styleUrls: [],
 })
 export class SidebarNavigationComponent {
-
     public readonly faSiginIcon: IconDefinition = faRightToBracket;
     public readonly faSigupIcon: IconDefinition = faUserPlus;
     public readonly faSideBarIcon: IconDefinition = faBars;
@@ -17,4 +26,13 @@ export class SidebarNavigationComponent {
 
     public sidebarVisible: boolean = false;
 
+    public constructor(
+        private router: Router,
+        private reloadService: ReloadService
+    ) {}
+
+    public goToRouteAndReload(route: string): void {
+        this.router.navigate([route]);
+        this.reloadService.setReloadFlag(true);
+    }
 }
