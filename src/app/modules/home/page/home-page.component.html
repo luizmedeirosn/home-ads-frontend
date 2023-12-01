@@ -1,7 +1,7 @@
-<app-sidebar-navigation></app-sidebar-navigation>
+<div *ngIf="$viewEnable | async">
+    <app-sidebar-navigation></app-sidebar-navigation>
 
-<app-ads-carousel
-    [ads]="ads"
-></app-ads-carousel>
+    <app-ads-carousel [ads]="ads"></app-ads-carousel>
 
-<app-home-description></app-home-description>
+    <app-home-description></app-home-description>
+</div>
