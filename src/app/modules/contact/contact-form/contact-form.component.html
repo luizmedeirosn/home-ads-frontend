@@ -1,0 +1,96 @@
+<div
+    class="flex justify-content-center align-items-center gap-5 mt-3"
+    style="height: 30rem"
+>
+    <p-card
+        styleClass="shadow-none zoomin animation-interation-1 animation-duration-1000 animation-ease-in-out"
+        header="Entre em contato conosco"
+        [style]="{ width: '30rem' }"
+    >
+        <p class="text-xl">
+            Fale com nossa equipe de suporte para esclarecer suas dúvidas.
+            Estamos disponíveis de segunda a sexta-feira, das 9h às 18h, para
+            ajudar você da melhor forma possível a encontrar o que procura.
+            Oferecemos suporte por e-mail ou ligação. Conte conosco para
+            fornecer informações detalhadas sobre nossos produtos, auxiliar em
+            questões técnicas ou fornecer orientações sobre o processo de
+            cadastro de anúncios. Sua satisfação é nossa prioridade.
+        </p>
+    </p-card>
+    <form [formGroup]="contactForm" (ngSubmit)="handleSubmitContactForm()">
+        <div class="card flex flex-column align-items-center md:flex-column gap-3 zoomin animation-interation-1 animation-duration-2000 animation-ease-in-out">
+            <div class="flex flex-column align-items-start gap-1">
+                <span class="p-float-label">
+                    <input
+                        pInputText
+                        formControlName="name"
+                        class="w-30rem" />
+                    <label htmlFor="name">Nome</label>
+                </span>
+                <app-form-control-alert
+                    [contactForm]="contactForm"
+                    [controlName]="'name'"
+                    [minNumberCharacters]="3"
+                    [maxNumberCharacters]="50"
+                ></app-form-control-alert>
+            </div>
+
+            <span class="p-float-label">
+                <p-inputMask
+                    mask="(99) 99999-9999"
+                    formControlName="phoneNumber"
+                    styleClass="w-30rem"
+                />
+                <label htmlFor="phoneNumber">Número do celular</label>
+            </span>
+
+            <div class="flex flex-column align-items-start gap-1">
+                <span class="p-float-label">
+                    <input
+                        pInputText
+                        formControlName="subject"
+                        class="w-30rem"
+                    />
+                    <label htmlFor="subject">Assunto da menssagem</label>
+                </span>
+                <app-form-control-alert
+                    [contactForm]="contactForm"
+                    [controlName]="'subject'"
+                    [minNumberCharacters]="10"
+                    [maxNumberCharacters]="50"
+                ></app-form-control-alert>
+            </div>
+
+            <div class="flex flex-column align-items-start gap-1">
+                <span class="p-float-label">
+                    <textarea
+                        pInputTextarea
+                        formControlName="message"
+                        [style]="{ width:'30rem' }"
+                    ></textarea>
+                    <label htmlFor="message">Conte-nos sobre a sua dúvida</label>
+                </span>
+                <app-form-control-alert
+                    [contactForm]="contactForm"
+                    [controlName]="'message'"
+                    [minNumberCharacters]="50"
+                    [maxNumberCharacters]="500"
+                ></app-form-control-alert>
+            </div>
+
+            <div
+                class="flex flex-row justify-content-center align-content-center align-items-center m-1"
+            >
+                <p-button
+                    [disabled]="!contactForm.valid"
+                    type="submit"
+                    label="Enviar"
+                    pTooltip="Enviar menssagem"
+                    tooltipPosition="top"
+                    styleClass="bg-green-600"
+                >
+                </p-button>
+            </div>
+        </div>
+    </form>
+</div>

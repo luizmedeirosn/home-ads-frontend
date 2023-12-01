@@ -5,13 +5,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
