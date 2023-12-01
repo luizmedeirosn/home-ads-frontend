@@ -4,7 +4,7 @@ import {
     IconDefinition,
     faBars,
     faBullhorn,
-    faPhoneVolume,
+    faEnvelope,
     faRightFromBracket,
     faRightToBracket,
     faUserPlus,
@@ -21,7 +21,7 @@ export class SidebarNavigationComponent {
     public readonly faSigupIcon: IconDefinition = faUserPlus;
     public readonly faSideBarIcon: IconDefinition = faBars;
     public readonly faAdsIcon: IconDefinition = faBullhorn;
-    public readonly faContactIcon: IconDefinition = faPhoneVolume;
+    public readonly faContactIcon: IconDefinition = faEnvelope;
     public readonly faLogoutIcon: IconDefinition = faRightFromBracket;
 
     public sidebarVisible: boolean = false;

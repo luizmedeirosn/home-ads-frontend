@@ -34,6 +34,7 @@
                     <p-button
                         styleClass="sidebar-button-color mt-3 text-lg font-bold border-none w-full text-left gap-3"
                         label="Contato"
+                        (onClick)="goToRouteAndReload('/contact')"
                     >
                         <fa-icon [icon]="faContactIcon"></fa-icon>
                     </p-button>
