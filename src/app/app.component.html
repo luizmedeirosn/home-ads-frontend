@@ -1,9 +1,10 @@
 <router-outlet></router-outlet>
 
 <p-toast
-  position="bottom-center"
-  [showTransitionOptions]="'translateY(100%)'"
-  showTransformOptions="'1000ms'"
-  hideTransitionOptions="'500ms'"
-  [breakpoints]="{ '920px': {width: '100%', right: '0', left: '0'} }"
+    position="top-center"
+    [showTransformOptions]="'translateY(-100%)'"
+    [showTransitionOptions]="'800ms'"
+    [hideTransitionOptions]="'800ms'"
+    styleClass="opacity-100 w-5"
+    [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
 ></p-toast>

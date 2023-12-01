@@ -1,3 +1,5 @@
-<app-sidebar-navigation></app-sidebar-navigation>
+<div *ngIf="$viewEnable | async">
+    <app-sidebar-navigation></app-sidebar-navigation>
 
-<app-contact-form></app-contact-form>
+    <app-contact-form></app-contact-form>
+</div>
