@@ -1,3 +1,4 @@
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TooltipModule } from 'primeng/tooltip';
@@ -30,6 +31,8 @@ import { FormControlAlertComponent } from './form-control-alert/form-control-ale
     ReactiveFormsModule,
 
     SharedModule,
+
+    FontAwesomeModule,
 
     AnimateOnScrollModule,
     CardModule,
