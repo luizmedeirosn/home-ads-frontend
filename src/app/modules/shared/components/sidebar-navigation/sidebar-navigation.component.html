@@ -28,6 +28,7 @@
                     <p-button
                         styleClass="sidebar-button-color mt-3 text-lg font-bold border-none w-full text-left gap-3"
                         label="Anúncios"
+                        (onClick)="goToRouteAndReload('/ads')"
                     >
                         <fa-icon [icon]="faAdsIcon"></fa-icon>
                     </p-button>
