@@ -4,10 +4,10 @@ import {
     IconDefinition,
     faBars,
     faBullhorn,
-    faEnvelope,
+    faInbox,
     faRightFromBracket,
     faRightToBracket,
-    faUserPlus,
+    faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { ReloadService } from 'src/app/services/reload/reload-service.service';
 
@@ -21,7 +21,7 @@ export class SidebarNavigationComponent {
     public readonly faSigupIcon: IconDefinition = faUserPlus;
     public readonly faSideBarIcon: IconDefinition = faBars;
     public readonly faAdsIcon: IconDefinition = faBullhorn;
-    public readonly faContactIcon: IconDefinition = faEnvelope;
+    public readonly faContactIcon: IconDefinition = faInbox;
     public readonly faLogoutIcon: IconDefinition = faRightFromBracket;
 
     public sidebarVisible: boolean = false;

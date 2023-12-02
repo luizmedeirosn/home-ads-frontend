@@ -106,3 +106,10 @@ p {
 .hide-small {
     display: none;
 }
+
+.contact-form-icon {
+    svg {
+        color: var(--blue-1) !important;
+    }
+    color: var(--blue-1);
+}

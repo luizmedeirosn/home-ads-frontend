@@ -1,11 +1,11 @@
 <div
-    class="flex justify-content-center align-items-center gap-5 mt-3"
+    class="flex justify-content-center align-items-start gap-5 mt-3"
     style="height: 30rem"
 >
     <p-card
-        styleClass="shadow-none zoomin animation-interation-1 animation-duration-1000 animation-ease-in-out"
+        styleClass="shadow-none flex flex-column zoomin align-items-center animation-interation-1 animation-duration-1000 animation-ease-in-out"
         header="Entre em contato conosco"
-        [style]="{ width: '30rem' }"
+        [style]="{ width: '35rem' }"
     >
         <p class="text-xl">
             Fale com nossa equipe de suporte para esclarecer suas dúvidas.
@@ -16,6 +16,16 @@
             questões técnicas ou fornecer orientações sobre o processo de
             cadastro de anúncios. Sua satisfação é nossa prioridade.
         </p>
+        <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-start align-items-center gap-2">
+                <fa-icon [icon]="faEmailIcon" size="xl" class="contact-form-icon"></fa-icon>
+                <span class="text-lg font-medium">netomedeirosdev@gmail.com</span>
+            </div>
+            <div class="flex justify-content-start align-items-center gap-2">
+                <fa-icon [icon]="faPhoneNumberIcon" size="xl" class="contact-form-icon"></fa-icon>
+                <span class="text-lg font-medium">+55 (83) 99896-0839</span>
+            </div>
+        </div>
     </p-card>
     <form [formGroup]="contactForm" (ngSubmit)="handleSubmitContactForm()">
         <div class="card flex flex-column align-items-center md:flex-column gap-3 zoomin animation-interation-1 animation-duration-2000 animation-ease-in-out">
@@ -82,7 +92,7 @@
                 class="flex flex-row justify-content-center align-content-center align-items-center m-1"
             >
                 <p-button
-                    [disabled]="!contactForm.valid"
+                    [disabled]="!contactForm.valid || contactForm.value.phoneNumber?.length !== 15"
                     type="submit"
                     label="Enviar"
                     pTooltip="Enviar menssagem"

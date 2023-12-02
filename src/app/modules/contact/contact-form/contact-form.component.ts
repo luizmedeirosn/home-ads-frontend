@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { IconDefinition, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -9,11 +10,15 @@ import { MessageService } from 'primeng/api';
 })
 export class ContactFormComponent {
 
+    public readonly faEmailIcon: IconDefinition = faEnvelope;
+    public readonly faPhoneNumberIcon: IconDefinition = faPhone;
+
+
     public contactForm = this.formBuilder.group({
         name: [ '', [Validators.minLength(3), Validators.maxLength(50)] ],
         phoneNumber: [ '', Validators.required ],
         subject: [ '', [Validators.minLength(10), Validators.maxLength(50)] ],
-        message: [ '', [Validators.minLength(50), Validators.maxLength(500)] ]
+        message: [ '', [ Validators.minLength(50), Validators.maxLength(500)] ]
     });
 
     constructor(
