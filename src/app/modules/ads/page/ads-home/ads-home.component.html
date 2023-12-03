@@ -1,3 +1,8 @@
 <div *ngIf="$viewEnable | async">
     <app-sidebar-navigation></app-sidebar-navigation>
+
+    <app-ads-list
+        [ads]="ads"
+        ($onPageChangeEvent)="onPageChangeAction($event)"
+    ></app-ads-list>
 </div>

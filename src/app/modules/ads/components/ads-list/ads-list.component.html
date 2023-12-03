@@ -1,0 +1,63 @@
+<div class="flex justify-content-center">
+    <p-card
+        styleClass="shadow-none mt-3"
+        [style]="{ width: '90rem' }"
+        header="Anúncios"
+    >
+        <div class="flex flex-wrap justify-content-center align-items-center">
+            <div
+                *ngFor="let ad of ads"
+                class="item shadow-3 m-3 py-3 text-center border-round-lg fadein animation-duration-500 animation-interation-1 animaion-ease-in-out"
+            >
+                <div class="mb-3">
+                    <img
+                        src="../../../../services/{{ ad.image }}"
+                        [alt]="ad.name"
+                        class="image-card"
+                    />
+                </div>
+                <div>
+                    <h3 class="mb-1">{{ ad.name }}</h3>
+                    <h3 class="mt-0 mb-3 text-green-700">
+                        Preço médio: {{ ad.price | currency : "BRL" }}
+                    </h3>
+                    <p-rating
+                        [(ngModel)]="
+                            ads.at(ads.indexOf(ad))?.rating ||
+                            ratingDefaultValue
+                        "
+                        [readonly]="true"
+                        [cancel]="false"
+                        [stars]="5"
+                    ></p-rating>
+                    <div
+                        class="flex justify-content-center align-items-center text-lg font-medium gap-2"
+                    >
+                        <fa-icon
+                            [icon]="faCategoryIcon"
+                            size="lg"
+                            [styles]="{ color: 'var(--gray-900)' }"
+                        ></fa-icon>
+                        <span>{{ ad.category }}</span>
+                    </div>
+                    <div class="car-buttons mt-3">
+                        <p-button
+                            type="button"
+                            label="Mais informações"
+                            styleClass="p-button p-button-rounded mr-2 gap-2 align-items-center bg-indigo-800 hover:bg-indigo-900"
+                        >
+                            <fa-icon [icon]="faSearchIcon" size="lg"></fa-icon>
+                        </p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p-paginator
+            (onPageChange)="onPageChange($event)"
+            [first]="0"
+            [rows]="8"
+            [totalRecords]="16"
+            styleClass="paginator"
+        ></p-paginator>
+    </p-card>
+</div>

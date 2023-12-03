@@ -113,3 +113,18 @@ p {
     }
     color: var(--blue-1);
 }
+
+.item {
+    flex: 1 0 20%;
+}
+
+.paginator {
+    background-color: whitesmoke;
+    button {
+        color: var(--black-1) !important;
+    }
+    svg {
+        color: var(--black-1) !important;
+    }
+
+}
