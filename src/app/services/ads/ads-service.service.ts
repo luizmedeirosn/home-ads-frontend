@@ -158,4 +158,8 @@ export class AdsService {
         return Promise.resolve(this.ads);
     }
 
+    public findAdsPerPage(begin: number, end: number ): Promise<Array<AdData>> {
+        return Promise.resolve(this.ads.slice(begin, begin+end));
+    }
+
 }
