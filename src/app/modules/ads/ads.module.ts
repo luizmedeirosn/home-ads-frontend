@@ -1,16 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdsHomeComponent } from './page/ads-home/ads-home.component';
-import { RouterModule } from '@angular/router';
-import { ADS_ROUTES } from './ads.routing';
-import { SharedModule } from '../shared/shared.module';
-import { AdsListComponent } from './components/ads-list/ads-list.component';
-import { CardModule } from 'primeng/card';
-import { RatingModule } from 'primeng/rating';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
-import { PaginatorModule } from 'primeng/paginator'
+import { CardModule } from 'primeng/card';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule } from 'primeng/paginator';
+import { RatingModule } from 'primeng/rating';
+import { SharedModule } from '../shared/shared.module';
+import { ADS_ROUTES } from './ads.routing';
+import { AdsListComponent } from './components/ads-list/ads-list.component';
+import { AdsHomeComponent } from './page/ads-home/ads-home.component';
 
 
 
@@ -33,6 +35,9 @@ import { PaginatorModule } from 'primeng/paginator'
     RatingModule,
     ButtonModule,
     PaginatorModule,
+    InputTextModule,
+    DropdownModule,
+
   ]
 })
 export class AdsModule { }

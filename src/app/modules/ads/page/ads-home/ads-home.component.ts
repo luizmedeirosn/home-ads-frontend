@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { BehaviorSubject } from 'rxjs';
+import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { AdData } from 'src/app/models/interfaces/AdData';
 import { AdsService } from 'src/app/services/ads/ads-service.service';
 import { ReloadService } from 'src/app/services/reload/reload-service.service';
@@ -14,7 +15,8 @@ export class AdsHomeComponent implements OnInit {
 
     public $viewEnable: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    public ads!: Array<AdData>;
+    public totalAds!: Array<AdData>;
+    public adsPage!: Array<AdData>;
 
     public constructor (
         private reloadService: ReloadService,
@@ -31,24 +33,39 @@ export class AdsHomeComponent implements OnInit {
         window.addEventListener('load', () => {
             this.$viewEnable.next(true);
         });
-        this.messageService.clear();
-        this.messageService.add({
-            key: 'adsToast',
-            severity: 'success',
-            summary: 'Sucesso',
-            detail: 'Anúncios carregados com sucesso!',
-            life: 2500,
+        this.adsService.findAllAds().then( (ads) => {
+            if (ads.length > 0) {
+                this.totalAds = ads;
+                this.adsPage = ads.slice(0, 2);
+                this.messageService.clear();
+                this.messageService.add({
+                    key: 'adsToast',
+                    severity: 'success',
+                    summary: 'Sucesso',
+                    detail: 'Anúncios carregados com sucesso!',
+                    life: 2500,
+                });
+            }
         });
     }
 
-    public onPageChangeAction($event: { begin: number; end: number; }) {
-        this.adsService.findProducsPerPage($event.begin, $event.end).then(
-            (ads) => {
-                if (ads.length > 0) {
-                    this.ads = ads;
+    public handleOnDropdownChangeAction($event: { category: AdCategoryEnum; }): void {
+        if ($event) {
+            this.adsService.findByCategory($event.category).then(
+                (ads) => {
+                    if (ads.length > 0) {
+                        this.totalAds = ads;
+                        this.adsPage = ads.slice(0, 2);
+                    }
                 }
-            }
-        );
+            );
+        }
+    }
+
+    public handleOnPageChangeAction($event: { begin: number; end: number; }): void {
+        if ($event) {
+            this.adsPage = this.totalAds.slice($event.begin, $event.begin + $event.end);
+        }
     }
 
 }

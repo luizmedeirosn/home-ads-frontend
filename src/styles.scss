@@ -118,7 +118,7 @@ p {
     flex: 1 0 20%;
 }
 
-.paginator {
+.paginator, .dropdown {
     background-color: whitesmoke;
     button {
         color: var(--black-1) !important;
@@ -126,5 +126,12 @@ p {
     svg {
         color: var(--black-1) !important;
     }
+}
 
+.p-dropdown-label, .p-placeholder {
+    color: black !important;
+}
+
+.p-dropdown-panel {
+    background-color: whitesmoke;
 }

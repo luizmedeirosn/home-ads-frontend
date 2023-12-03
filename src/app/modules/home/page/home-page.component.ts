@@ -26,7 +26,7 @@ export class HomePageComponent implements OnInit {
         window.addEventListener('load', () => {
             this.$viewEnable.next(true);
         });
-        this.adsService.findAllProducts().then((ads) => {
+        this.adsService.findAllAds().then((ads) => {
             if (ads.length > 0) {
                 this.ads = ads;
             }
