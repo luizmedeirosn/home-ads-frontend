@@ -4,28 +4,40 @@
         [style]="{ width: '90rem' }"
         header="Anúncios"
     >
-        <div class="flex justify-content-start m-3 gap-3">
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input
-                    pInputText
-                    class="w-20rem"
-                    style="background-color: whitesmoke"
-                    placeholder="Pesquise os aúncios por título"
-                    [(ngModel)]="keyWord"
-                    (ngModelChange)="$onInputChangeEvent.emit({ keyWord })"
-                />
-            </span>
-            <p-dropdown
-                [options]="categories"
-                [editable]="true"
-                placeholder="Selecione uma categoria"
-                optionLabel="category"
-                styleClass="dropdown w-20rem"
-                [(ngModel)]="selectedCategory"
-                (onChange)="handleDropdownChangeEvent()"
-            ></p-dropdown>
+        <div class="flex justify-content-between align-items-center m-3">
+            <div class="flex justify-content-start gap-3">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input
+                        pInputText
+                        class="w-20rem"
+                        style="background-color: whitesmoke"
+                        placeholder="Pesquise os aúncios por título"
+                        [(ngModel)]="keyWord"
+                        (ngModelChange)="$onInputChangeEvent.emit({ keyWord })"
+                    />
+                </span>
+                <p-dropdown
+                    [options]="categories"
+                    [editable]="true"
+                    placeholder="Selecione uma categoria"
+                    optionLabel="category"
+                    styleClass="dropdown w-20rem"
+                    [(ngModel)]="selectedCategory"
+                    (onChange)="handleDropdownChangeEvent()"
+                ></p-dropdown>
+            </div>
+            <p-button
+                pTooltip="Cadastre um novo anúncio"
+                tooltipPosition="top"
+                label="Adicionar"
+                styleClass="bg-indigo-800 hover:bg-indigo-900 gap-3 text-lg flex align-items-center"
+                [raised]="true"
+            >
+                <fa-icon [icon]="faAddIcon" size="xl" ></fa-icon>
+            </p-button>
         </div>
+
         <div *ngIf="totalAds.length > 0; else withoutAds" class="flex flex-wrap justify-content-center align-items-center">
             <div
                 *ngFor="let ad of adsPage"
@@ -74,6 +86,7 @@
                 </div>
             </div>
         </div>
+
         <p-paginator *ngIf="totalAds.length > 0"
             (onPageChange)="handleOnPageChangeEvent($event)"
             [first]="0"
@@ -81,6 +94,7 @@
             [totalRecords]="totalAds.length"
             styleClass="paginator"
         ></p-paginator>
+
         <ng-template #withoutAds>
             <div class="flex justify-content-center align-items-center m-3 gap-3">
                 <fa-icon [icon]="faNotFoundIcon" size="2xl" [styles]="{ color: 'var(--gray-900)' }"></fa-icon>

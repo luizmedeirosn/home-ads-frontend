@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
     IconDefinition,
+    faPlus,
     faSearch,
     faTag,
     faX,
@@ -34,6 +35,7 @@ export class AdsListComponent implements OnInit {
     public readonly faSearchIcon: IconDefinition = faSearch;
     public readonly faSearchAdsIcon: IconDefinition = faSearch;
     public readonly faNotFoundIcon: IconDefinition = faX;
+    public readonly faAddIcon: IconDefinition = faPlus;
 
     public ratingDefaultValue: number = 0;
 

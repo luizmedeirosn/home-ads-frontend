@@ -13,6 +13,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ADS_ROUTES } from './ads.routing';
 import { AdsListComponent } from './components/ads-list/ads-list.component';
 import { AdsHomeComponent } from './page/ads-home/ads-home.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -37,6 +38,7 @@ import { AdsHomeComponent } from './page/ads-home/ads-home.component';
     PaginatorModule,
     InputTextModule,
     DropdownModule,
+    TooltipModule,
 
   ]
 })
