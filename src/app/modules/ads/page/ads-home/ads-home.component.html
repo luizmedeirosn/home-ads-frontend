@@ -1,0 +1,11 @@
+<div *ngIf="$viewEnable | async">
+    <app-sidebar-navigation></app-sidebar-navigation>
+
+    <app-ads-list
+        [totalAds]="totalAds"
+        [adsPage]="adsPage"
+        ($onInputChangeEvent)="handleOnInputChangeAction($event)"
+        ($onDropdownChangeEvent)="handleOnDropdownChangeAction($event)"
+        ($onPageChangeEvent)="handleOnPageChangeAction($event)"
+    ></app-ads-list>
+</div>
