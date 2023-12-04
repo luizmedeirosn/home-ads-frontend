@@ -30,6 +30,7 @@ export class AdsListComponent implements OnInit {
         begin: number;
         end: number;
     }> = new EventEmitter();
+    @Output() public $addAdEvent: EventEmitter<void> = new EventEmitter();
 
     public readonly faCategoryIcon: IconDefinition = faTag;
     public readonly faSearchIcon: IconDefinition = faSearch;
@@ -82,5 +83,9 @@ export class AdsListComponent implements OnInit {
                 end: $event.rows,
             });
         }
+    }
+
+    public handleAddAdEvent() : void {
+        this.$addAdEvent.emit();
     }
 }

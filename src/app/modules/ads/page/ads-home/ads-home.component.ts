@@ -79,4 +79,8 @@ export class AdsHomeComponent implements OnInit {
         }
     }
 
+    public handleAddAdAction() : void {
+        console.log('handleAddAdAction invoked');
+    }
+
 }
