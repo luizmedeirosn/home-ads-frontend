@@ -30,7 +30,7 @@ export class AdsService {
         },
         {
             id: 3,
-            name: 'Lençol de casal com bardado',
+            name: 'Lençol de casal com bordado',
             description:
                 'Adicione um toque de elegância ao seu quarto com nosso lençol de casal bordado, combinando estilo e conforto para uma noite de sono tranquila.',
             image: '../../../assets/bed-and-bath/lençol-de-casal-com-bordado.jpg',
@@ -50,10 +50,10 @@ export class AdsService {
         },
         {
             id: 5,
-            name: 'Ar condicionado',
+            name: 'Ar condicionado Eletrolux',
             description:
                 'Equipado com um sistema de refrigeração poderoso, o ar condicionado é capaz de remover o calor excessivo do ar, promovendo uma sensação de frescor e bem-estar.',
-            image: '../../../assets/appliances/ar-condicionado.jpg',
+            image: '../../../assets/appliances/ar-condicionado-lg.webp',
             price: 2299.9,
             rating: 5,
             category: AdCategoryEnum.APPLIANCES,
@@ -170,7 +170,9 @@ export class AdsService {
         },
     ];
 
-    public constructor(private primeFilterService: FilterService) {}
+    public filterCategoryActivated!: { activated: boolean; category: AdCategoryEnum | undefined };
+
+    public constructor(private primeFilterService: FilterService) { }
 
     public findAllAds(): Promise<Array<AdData>> {
         return Promise.resolve(this.ads);
@@ -180,15 +182,25 @@ export class AdsService {
         return Promise.resolve(this.ads.slice(begin, begin + end));
     }
 
-    public findByKeyWord(keyWord: string): Promise<Array<AdData>> {
-        const filteredAds: Array<AdData> = this.ads.filter((x) =>
-            this.primeFilterService.filters['contains'](x.name, keyWord)
-        );
-        if (filteredAds.length > 0) {
-            return Promise.resolve(filteredAds);
+    async findByKeyWord(keyWord: string): Promise<Array<AdData>> {
+        let ads: Array<AdData> = new Array();
+        if (this.filterCategoryActivated?.activated && this.filterCategoryActivated?.category) {
+            await this.findByCategory(this.filterCategoryActivated.category).then(
+                (filteredAds) => {
+                    ads = filteredAds;
+                }
+            );
         } else {
-            return Promise.resolve(this.ads);
+            ads = this.ads;
         }
+        const filteredAds: Array<AdData> = ads.filter((x) =>
+            this.primeFilterService.filters['contains'](
+                x.name.toLowerCase().split(" ").map(x => x.trim()).reduce((a, b) => a + b, ""),
+                keyWord.toLowerCase().split(" ").map(x => x.trim()).reduce((a, b) => a + b, "")
+            ),
+        );
+
+        return Promise.resolve(filteredAds);
     }
 
     public findByCategory(category: AdCategoryEnum): Promise<Array<AdData>> {
@@ -197,8 +209,16 @@ export class AdsService {
         );
 
         if (filteredAds.length > 0) {
+            this.filterCategoryActivated = {
+                activated: true,
+                category
+            };
             return Promise.resolve(filteredAds);
         } else {
+            this.filterCategoryActivated = {
+                activated: false,
+                category: undefined
+            };
             return Promise.resolve(this.ads);
         }
     }
