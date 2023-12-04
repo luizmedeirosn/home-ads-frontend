@@ -33,30 +33,41 @@ export class AdsHomeComponent implements OnInit {
         window.addEventListener('load', () => {
             this.$viewEnable.next(true);
         });
-        this.adsService.findAllAds().then( (ads) => {
-            if (ads.length > 0) {
-                this.totalAds = ads;
-                this.adsPage = ads.slice(0, 2);
-                this.messageService.clear();
-                this.messageService.add({
-                    key: 'adsToast',
-                    severity: 'success',
-                    summary: 'Sucesso',
-                    detail: 'Anúncios carregados com sucesso!',
-                    life: 2500,
-                });
+        this.adsService.findAllAds().then(
+            (ads) => {
+                if (ads.length > 0) {
+                    this.totalAds = ads;
+                    this.adsPage = ads.slice(0, 8);
+                    this.messageService.clear();
+                    this.messageService.add({
+                        key: 'adsToast',
+                        severity: 'success',
+                        summary: 'Sucesso',
+                        detail: 'Anúncios carregados com sucesso!',
+                        life: 2500,
+                    });
+                }
             }
-        });
+        );
+    }
+
+    public handleOnInputChangeAction( $event: {keyWord: string} ): void {
+        if ($event) {
+            this.adsService.findByKeyWord($event.keyWord).then(
+                (ads) => {
+                    this.totalAds = ads;
+                    this.adsPage = ads.slice(0, 8);
+                }
+            );
+        }
     }
 
     public handleOnDropdownChangeAction($event: { category: AdCategoryEnum; }): void {
         if ($event) {
             this.adsService.findByCategory($event.category).then(
                 (ads) => {
-                    if (ads.length > 0) {
-                        this.totalAds = ads;
-                        this.adsPage = ads.slice(0, 2);
-                    }
+                    this.totalAds = ads;
+                    this.adsPage = ads.slice(0, 8);
                 }
             );
         }

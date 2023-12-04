@@ -3,6 +3,7 @@ import {
     IconDefinition,
     faSearch,
     faTag,
+    faX,
 } from '@fortawesome/free-solid-svg-icons';
 import { PaginatorState } from 'primeng/paginator';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
@@ -18,6 +19,9 @@ export class AdsListComponent implements OnInit {
     @Input() public adsPage!: Array<AdData>;
     @Input() public keyWord!: string;
 
+    @Output() public $onInputChangeEvent: EventEmitter<{
+        keyWord: string;
+    }> = new EventEmitter();
     @Output() public $onDropdownChangeEvent: EventEmitter<{
         category: AdCategoryEnum;
     }> = new EventEmitter();
@@ -29,6 +33,8 @@ export class AdsListComponent implements OnInit {
     public readonly faCategoryIcon: IconDefinition = faTag;
     public readonly faSearchIcon: IconDefinition = faSearch;
     public readonly faSearchAdsIcon: IconDefinition = faSearch;
+    public readonly faNotFoundIcon: IconDefinition = faX;
+
     public ratingDefaultValue: number = 0;
 
     public readonly categories = [
@@ -42,22 +48,28 @@ export class AdsListComponent implements OnInit {
     public ngOnInit(): void {
         this.$onPageChangeEvent.emit({
             begin: 0,
-            end: 2
+            end: 8
         });
     }
 
     public handleDropdownChangeEvent(): void {
         const categoryMappings: { [key: string]: AdCategoryEnum } = {
             'Cama, mesa e banho': AdCategoryEnum.BED_AND_BATH,
-            Eletrodomésticos: AdCategoryEnum.APPLIANCES,
-            Móveis: AdCategoryEnum.FURNITURE,
-            Ferramentas: AdCategoryEnum.TOOLS,
+            'Eletrodomésticos': AdCategoryEnum.APPLIANCES,
+            'Móveis': AdCategoryEnum.FURNITURE,
+            'Ferramentas': AdCategoryEnum.TOOLS,
         };
         const category: AdCategoryEnum =
             categoryMappings[this.selectedCategory.category];
 
         this.$onDropdownChangeEvent.emit({
             category,
+        });
+    }
+
+    public handleInputChangeEvent(): void {
+        this.$onInputChangeEvent.emit({
+            keyWord: this.keyWord
         });
     }
 

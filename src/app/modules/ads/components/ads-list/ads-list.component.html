@@ -11,21 +11,22 @@
                     pInputText
                     class="w-20rem"
                     style="background-color: whitesmoke"
-                    placeholder="Pesquise por palavra-chave"
+                    placeholder="Pesquise os aúncios por título"
                     [(ngModel)]="keyWord"
+                    (ngModelChange)="$onInputChangeEvent.emit({ keyWord })"
                 />
             </span>
             <p-dropdown
                 [options]="categories"
                 [editable]="true"
-                placeholder="Selecione uma Categoria"
+                placeholder="Selecione uma categoria"
                 optionLabel="category"
-                styleClass="dropdown"
-                (onChange)="handleDropdownChangeEvent()"
+                styleClass="dropdown w-20rem"
                 [(ngModel)]="selectedCategory"
+                (onChange)="handleDropdownChangeEvent()"
             ></p-dropdown>
         </div>
-        <div class="flex flex-wrap justify-content-center align-items-center">
+        <div *ngIf="totalAds.length > 0; else withoutAds" class="flex flex-wrap justify-content-center align-items-center">
             <div
                 *ngFor="let ad of adsPage"
                 class="item shadow-3 m-3 py-3 text-center border-round-lg"
@@ -73,12 +74,18 @@
                 </div>
             </div>
         </div>
-        <p-paginator
+        <p-paginator *ngIf="totalAds.length > 0"
             (onPageChange)="handleOnPageChangeEvent($event)"
             [first]="0"
-            [rows]="2"
+            [rows]="8"
             [totalRecords]="totalAds.length"
             styleClass="paginator"
         ></p-paginator>
+        <ng-template #withoutAds>
+            <div class="flex justify-content-center align-items-center m-3 gap-3">
+                <fa-icon [icon]="faNotFoundIcon" size="2xl" [styles]="{ color: 'var(--gray-900)' }"></fa-icon>
+                <h2>Não há ocorrências para a sua pesquisa...</h2>
+            </div>
+        </ng-template>
     </p-card>
 </div>
