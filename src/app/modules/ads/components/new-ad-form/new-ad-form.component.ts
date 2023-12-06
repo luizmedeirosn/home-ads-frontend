@@ -18,7 +18,11 @@ export class NewAdFormComponent {
     ];
 
     private priceValidadorAsync(control: AbstractControl): Observable<ValidationErrors | null> {
-        // fazer a validação
+        const value: string = String(control.value);
+        const validatorPattern: RegExp = /^\d+(\.\d{3})*(,\d{1,2})?$/;
+        if (value.length <= 0 || value.length > 15 || !validatorPattern.test(value)) {
+            return of({ priceValidadorAsync: true });
+        }
         return of(null);
     }
 
