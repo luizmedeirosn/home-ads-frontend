@@ -19,7 +19,7 @@
                 </span>
                 <p-dropdown
                     [options]="categories"
-                    [editable]="true"
+                    [showClear]="true"
                     placeholder="Selecione uma categoria"
                     optionLabel="category"
                     styleClass="dropdown w-20rem"
@@ -46,7 +46,7 @@
             >
                 <div class="mb-3">
                     <img
-                        src="../../../../services/{{ ad.image }}"
+                        src="src/app/services/{{ ad.image }}"
                         [alt]="ad.name"
                         class="image-card"
                     />

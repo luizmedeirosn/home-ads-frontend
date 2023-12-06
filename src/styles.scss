@@ -139,3 +139,12 @@ p {
 .p-dropdown-panel {
     background-color: whitesmoke;
 }
+
+.p-dialog-header {
+    color: white;
+    background-color: var(--blue-1) !important;
+}
+
+.p-dialog-content {
+    background-color: whitesmoke !important;
+}

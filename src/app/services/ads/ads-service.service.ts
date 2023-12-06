@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FilterService } from 'primeng/api';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
-import { AdData } from 'src/app/models/interfaces/AdData';
+import { AdDataMin } from 'src/app/models/interfaces/AdDataMin';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AdsService {
-    private readonly ads: Array<AdData> = [
+    private readonly ads: Array<AdDataMin> = [
         {
             id: 1,
             name: 'Combo toalhas de banho',
@@ -172,18 +172,18 @@ export class AdsService {
 
     public filterCategoryActivated!: { activated: boolean; category: AdCategoryEnum | undefined };
 
-    public constructor(private primeFilterService: FilterService) { }
+    public constructor(private primeFilterService: FilterService) {}
 
-    public findAllAds(): Promise<Array<AdData>> {
+    public findAllAds(): Promise<Array<AdDataMin>> {
         return Promise.resolve(this.ads);
     }
 
-    public findAdsPerPage(begin: number, end: number): Promise<Array<AdData>> {
+    public findAdsPerPage(begin: number, end: number): Promise<Array<AdDataMin>> {
         return Promise.resolve(this.ads.slice(begin, begin + end));
     }
 
-    async findByKeyWord(keyWord: string): Promise<Array<AdData>> {
-        let ads: Array<AdData> = new Array();
+    async findByKeyWord(keyWord: string): Promise<Array<AdDataMin>> {
+        let ads: Array<AdDataMin> = new Array();
         if (this.filterCategoryActivated?.activated && this.filterCategoryActivated?.category) {
             await this.findByCategory(this.filterCategoryActivated.category).then(
                 (filteredAds) => {
@@ -193,7 +193,7 @@ export class AdsService {
         } else {
             ads = this.ads;
         }
-        const filteredAds: Array<AdData> = ads.filter((x) =>
+        const filteredAds: Array<AdDataMin> = ads.filter((x) =>
             this.primeFilterService.filters['contains'](
                 x.name.toLowerCase().split(" ").map(x => x.trim()).reduce((a, b) => a + b, ""),
                 keyWord.toLowerCase().split(" ").map(x => x.trim()).reduce((a, b) => a + b, "")
@@ -203,8 +203,8 @@ export class AdsService {
         return Promise.resolve(filteredAds);
     }
 
-    public findByCategory(category: AdCategoryEnum): Promise<Array<AdData>> {
-        const filteredAds: Array<AdData> = this.ads.filter((x) =>
+    public findByCategory(category: AdCategoryEnum): Promise<Array<AdDataMin>> {
+        const filteredAds: Array<AdDataMin> = this.ads.filter((x) =>
             this.primeFilterService.filters['contains'](x.category, category)
         );
 

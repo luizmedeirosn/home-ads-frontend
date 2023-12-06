@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class FormControlAlertComponent {
     @Input()
-    public contactForm!: any;
+    public form!: any;
 
     @Input()
     public controlName!: string;

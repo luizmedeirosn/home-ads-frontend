@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AdData } from 'src/app/models/interfaces/AdData';
+import { AdDataMin } from 'src/app/models/interfaces/AdDataMin';
 import { AdsService } from 'src/app/services/ads/ads-service.service';
 import { ReloadService } from 'src/app/services/reload/reload-service.service';
 
@@ -11,7 +11,7 @@ import { ReloadService } from 'src/app/services/reload/reload-service.service';
 })
 export class HomePageComponent implements OnInit {
     public $viewEnable: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    public ads!: Array<AdData>;
+    public ads!: Array<AdDataMin>;
 
     constructor(
         private reloadService: ReloadService,

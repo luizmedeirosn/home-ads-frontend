@@ -1,0 +1,76 @@
+<form
+    [formGroup]="newAdForm"
+    (ngSubmit)="handleSubmitAddAd()"
+    class="flex justify-content-center align-items-center"
+>
+    <div
+        class="card flex flex-column md:flex-column align-content-center w-full m-3 gap-3"
+    >
+        <input
+            pInputText
+            placeholder="Título do anúncio"
+            formControlName="name"
+            style="background-color: whitesmoke"
+        />
+        <app-form-control-alert
+            [form]="newAdForm"
+            [controlName]="'name'"
+            [minNumberCharacters]="3"
+            [maxNumberCharacters]="50"
+        ></app-form-control-alert>
+
+        <input
+            pInputText
+            placeholder="Descrição"
+            formControlName="description"
+            style="background-color: whitesmoke"
+        />
+        <app-form-control-alert
+            [form]="newAdForm"
+            [controlName]="'description'"
+            [minNumberCharacters]="50"
+            [maxNumberCharacters]="300"
+        ></app-form-control-alert>
+
+        <input
+            pInputText
+            placeholder="Informe o valor do produto adquirido (ex: 3999,99)"
+            formControlName="price"
+            style="background-color: whitesmoke"
+        />
+        <app-form-control-alert
+            [form]="newAdForm"
+            [controlName]="'price'"
+            [minNumberCharacters]="1"
+            [maxNumberCharacters]="12"
+        ></app-form-control-alert>
+
+        <p-dropdown
+            styleClass="dropdown w-full"
+            [options]="categories"
+            optionLabel="category"
+            placeholder="Select a category"
+            formControlName="category"
+        ></p-dropdown>
+
+        <div class="flex justify-content-start align-content-center gap-3">
+            <span class="text-lg font-medium">Atribua uma nota:</span>
+            <p-rating
+                formControlName="rating"
+                [stars]="5"
+                [cancel]="false"
+            ></p-rating>
+        </div>
+        <div
+            class="flex flex-row justify-content-center align-content-center align-items-center m-1"
+        >
+            <p-button
+                [disabled]="!newAdForm.valid"
+                type="submit"
+                label="Concluir"
+                styleClass="bg-green-600"
+            >
+            </p-button>
+        </div>
+    </div>
+</form>

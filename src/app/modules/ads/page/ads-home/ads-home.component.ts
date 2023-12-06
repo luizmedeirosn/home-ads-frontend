@@ -1,26 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { BehaviorSubject } from 'rxjs';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
-import { AdData } from 'src/app/models/interfaces/AdData';
+import { AdDataMin } from 'src/app/models/interfaces/AdDataMin';
 import { AdsService } from 'src/app/services/ads/ads-service.service';
 import { ReloadService } from 'src/app/services/reload/reload-service.service';
+import { NewAdFormComponent } from '../../components/new-ad-form/new-ad-form.component';
 
 @Component({
   selector: 'app-ads-home',
   templateUrl: './ads-home.component.html',
   styleUrls: []
 })
-export class AdsHomeComponent implements OnInit {
+export class AdsHomeComponent implements OnInit, OnDestroy {
+
+    private $destroy: Subject<void> = new Subject();
 
     public $viewEnable: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    public totalAds!: Array<AdData>;
-    public adsPage!: Array<AdData>;
+    public totalAds!: Array<AdDataMin>;
+    public adsPage!: Array<AdDataMin>;
+
+    private dynamicDialogRef!: DynamicDialogRef;
 
     public constructor (
         private reloadService: ReloadService,
         private messageService: MessageService,
+        private dialogService: DialogService,
 
         private adsService: AdsService
     ) {}
@@ -62,9 +69,16 @@ export class AdsHomeComponent implements OnInit {
         }
     }
 
-    public handleOnDropdownChangeAction($event: { category: AdCategoryEnum; }): void {
-        if ($event) {
+    public handleOnDropdownChangeAction($event: { category: AdCategoryEnum | undefined; }): void {
+        if ($event?.category) {
             this.adsService.findByCategory($event.category).then(
+                (ads) => {
+                    this.totalAds = ads;
+                    this.adsPage = ads.slice(0, 8);
+                }
+            );
+        } else {
+            this.adsService.findAllAds().then(
                 (ads) => {
                     this.totalAds = ads;
                     this.adsPage = ads.slice(0, 8);
@@ -80,7 +94,31 @@ export class AdsHomeComponent implements OnInit {
     }
 
     public handleAddAdAction() : void {
-        console.log('handleAddAdAction invoked');
+        this.dynamicDialogRef = this.dialogService.open(
+            NewAdFormComponent,
+            {
+                header: 'Cadastre de um novo anúncio',
+                width: '50%',
+                contentStyle: {
+                    overflow: 'auto',
+                },
+                baseZIndex: 10000,
+                maximizable: true,
+            }
+        );
+
+        this.dynamicDialogRef.onClose
+        .pipe(takeUntil(this.$destroy))
+        .subscribe({
+            next: () => {
+                console.log('onClose()')
+            }
+        });
+    }
+
+    public ngOnDestroy(): void {
+        this.$destroy.next();
+        this.$destroy.complete();
     }
 
 }

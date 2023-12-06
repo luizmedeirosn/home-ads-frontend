@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { PaginatorState } from 'primeng/paginator';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
-import { AdData } from 'src/app/models/interfaces/AdData';
+import { AdDataMin } from 'src/app/models/interfaces/AdDataMin';
 
 @Component({
     selector: 'app-ads-list',
@@ -16,15 +16,15 @@ import { AdData } from 'src/app/models/interfaces/AdData';
     styleUrls: [],
 })
 export class AdsListComponent implements OnInit {
-    @Input() public totalAds!: Array<AdData>;
-    @Input() public adsPage!: Array<AdData>;
+    @Input() public totalAds!: Array<AdDataMin>;
+    @Input() public adsPage!: Array<AdDataMin>;
     @Input() public keyWord!: string;
 
     @Output() public $onInputChangeEvent: EventEmitter<{
         keyWord: string;
     }> = new EventEmitter();
     @Output() public $onDropdownChangeEvent: EventEmitter<{
-        category: AdCategoryEnum;
+        category: AdCategoryEnum | undefined;
     }> = new EventEmitter();
     @Output() public $onPageChangeEvent: EventEmitter<{
         begin: number;
@@ -56,18 +56,24 @@ export class AdsListComponent implements OnInit {
     }
 
     public handleDropdownChangeEvent(): void {
-        const categoryMappings: { [key: string]: AdCategoryEnum } = {
-            'Cama, mesa e banho': AdCategoryEnum.BED_AND_BATH,
-            'Eletrodomésticos': AdCategoryEnum.APPLIANCES,
-            'Móveis': AdCategoryEnum.FURNITURE,
-            'Ferramentas': AdCategoryEnum.TOOLS,
-        };
-        const category: AdCategoryEnum =
-            categoryMappings[this.selectedCategory.category];
+        if (this.selectedCategory) {
+            const categoryMappings: { [key: string]: AdCategoryEnum } = {
+                'Cama, mesa e banho': AdCategoryEnum.BED_AND_BATH,
+                'Eletrodomésticos': AdCategoryEnum.APPLIANCES,
+                'Móveis': AdCategoryEnum.FURNITURE,
+                'Ferramentas': AdCategoryEnum.TOOLS,
+            };
+            const category: AdCategoryEnum =
+                categoryMappings[this.selectedCategory.category];
 
-        this.$onDropdownChangeEvent.emit({
-            category,
-        });
+            this.$onDropdownChangeEvent.emit({
+                category,
+            });
+        } else {
+            this.$onDropdownChangeEvent.emit({
+                category: undefined,
+            });
+        }
     }
 
     public handleInputChangeEvent(): void {

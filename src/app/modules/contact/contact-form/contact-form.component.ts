@@ -58,7 +58,7 @@ export class ContactFormComponent {
         ],
     });
 
-    constructor(
+    public constructor(
         private formBuilder: FormBuilder,
         private messageService: MessageService
     ) {}

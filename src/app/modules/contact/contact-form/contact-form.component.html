@@ -38,7 +38,7 @@
                     <label htmlFor="name">Nome</label>
                 </span>
                 <app-form-control-alert
-                    [contactForm]="contactForm"
+                    [form]="contactForm"
                     [controlName]="'name'"
                     [minNumberCharacters]="3"
                     [maxNumberCharacters]="50"
@@ -64,7 +64,7 @@
                     <label htmlFor="subject">Assunto da menssagem</label>
                 </span>
                 <app-form-control-alert
-                    [contactForm]="contactForm"
+                    [form]="contactForm"
                     [controlName]="'subject'"
                     [minNumberCharacters]="10"
                     [maxNumberCharacters]="50"
@@ -81,7 +81,7 @@
                     <label htmlFor="message">Conte-nos sobre a sua dúvida</label>
                 </span>
                 <app-form-control-alert
-                    [contactForm]="contactForm"
+                    [form]="contactForm"
                     [controlName]="'message'"
                     [minNumberCharacters]="50"
                     [maxNumberCharacters]="500"
