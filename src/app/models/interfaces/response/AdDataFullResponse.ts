@@ -1,6 +1,6 @@
-import { AdCategoryEnum } from "../enums/AdCategoriesEnum";
+import { AdCategoryEnum } from "../../enums/AdCategoriesEnum";
 
-export interface AdDataFull {
+export interface AdDataFullResponse {
 
     id: number;
     name: string;
@@ -10,8 +10,8 @@ export interface AdDataFull {
     rating: number;
     category: AdCategoryEnum;
     userId: number;
-    userName: number;
-    userLocation: number;
+    userName: string;
+    userLocation: string;
     publicationDate: Date;
 
 }

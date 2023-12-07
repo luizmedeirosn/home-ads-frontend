@@ -1,6 +1,6 @@
-import { AdCategoryEnum } from "../enums/AdCategoriesEnum";
+import { AdCategoryEnum } from "../../enums/AdCategoriesEnum";
 
-export interface AdDataMin {
+export interface AdDataMinResponse {
 
     id: number;
     name: string;
