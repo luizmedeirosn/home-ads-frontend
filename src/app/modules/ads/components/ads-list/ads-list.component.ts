@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { PaginatorState } from 'primeng/paginator';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
-import { AdDataMin } from 'src/app/models/interfaces/AdDataMin';
+import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
 
 @Component({
     selector: 'app-ads-list',
@@ -16,8 +16,8 @@ import { AdDataMin } from 'src/app/models/interfaces/AdDataMin';
     styleUrls: [],
 })
 export class AdsListComponent implements OnInit {
-    @Input() public totalAds!: Array<AdDataMin>;
-    @Input() public adsPage!: Array<AdDataMin>;
+    @Input() public totalAds!: Array<AdDataMinResponse>;
+    @Input() public adsPage!: Array<AdDataMinResponse>;
     @Input() public keyWord!: string;
 
     @Output() public $onInputChangeEvent: EventEmitter<{

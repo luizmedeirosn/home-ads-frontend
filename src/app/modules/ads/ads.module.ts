@@ -19,6 +19,7 @@ import { AdsHomeComponent } from './page/ads-home/ads-home.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 
@@ -48,6 +49,7 @@ import { InputTextModule } from 'primeng/inputtext';
     TooltipModule,
     DynamicDialogModule,
     ConfirmDialogModule,
+    FileUploadModule,
   ],
   providers: [
     DialogService,

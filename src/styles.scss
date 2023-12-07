@@ -148,3 +148,10 @@ p {
 .p-dialog-content {
     background-color: whitesmoke !important;
 }
+
+.choose-icon {
+    color: var(--black-1);
+    svg {
+        color: var(--black-1) !important;
+    }
+}

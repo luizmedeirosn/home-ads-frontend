@@ -28,7 +28,7 @@
         <app-form-control-alert
             [form]="newAdForm"
             [controlName]="'description'"
-            [minNumberCharacters]="50"
+            [minNumberCharacters]="40"
             [maxNumberCharacters]="300"
         ></app-form-control-alert>
 
@@ -48,7 +48,6 @@
         <p-dropdown
             styleClass="dropdown w-full"
             [options]="categories"
-            optionLabel="category"
             placeholder="Select a category"
             formControlName="category"
         ></p-dropdown>
@@ -61,6 +60,18 @@
                 [cancel]="false"
             ></p-rating>
         </div>
+
+        <p-fileUpload
+            mode="basic"
+            name="image"
+            accept="image/*"
+            [maxFileSize]="1000000"
+            (onUpload)="addAdImage($event)"
+            [auto]="true"
+            styleClass="choose-icon bg-gray-300 hover:bg-gray-400 text-gray-900 text-sm border-round-xs p-2"
+            chooseLabel="Escolha a imagem do produto"
+        ></p-fileUpload>
+
         <div
             class="flex flex-row justify-content-center align-content-center align-items-center m-1"
         >

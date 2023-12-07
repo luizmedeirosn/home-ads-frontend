@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AdDataMin } from 'src/app/models/interfaces/AdDataMin';
+import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
 import { IconDefinition, faTag, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,7 +9,7 @@ import { IconDefinition, faTag, faSearch } from '@fortawesome/free-solid-svg-ico
 })
 export class AdsCarouselComponent {
 
-    @Input() ads!: Array<AdDataMin>;
+    @Input() ads!: Array<AdDataMinResponse>;
 
     public ratingDefaultValue: number = 0
 

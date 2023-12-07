@@ -3,34 +3,33 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
-import { AdDataMin } from 'src/app/models/interfaces/AdDataMin';
+import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
 import { AdsService } from 'src/app/services/ads/ads-service.service';
 import { ReloadService } from 'src/app/services/reload/reload-service.service';
 import { NewAdFormComponent } from '../../components/new-ad-form/new-ad-form.component';
 
 @Component({
-  selector: 'app-ads-home',
-  templateUrl: './ads-home.component.html',
-  styleUrls: []
+    selector: 'app-ads-home',
+    templateUrl: './ads-home.component.html',
+    styleUrls: []
 })
 export class AdsHomeComponent implements OnInit, OnDestroy {
-
     private $destroy: Subject<void> = new Subject();
 
     public $viewEnable: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    public totalAds!: Array<AdDataMin>;
-    public adsPage!: Array<AdDataMin>;
+    public totalAds!: Array<AdDataMinResponse>;
+    public adsPage!: Array<AdDataMinResponse>;
 
     private dynamicDialogRef!: DynamicDialogRef;
 
-    public constructor (
+    public constructor(
         private reloadService: ReloadService,
         private messageService: MessageService,
         private dialogService: DialogService,
 
         private adsService: AdsService
-    ) {}
+    ) { }
 
     public ngOnInit(): void {
         if (this.reloadService.shouldReload()) {
@@ -58,7 +57,18 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
         );
     }
 
-    public handleOnInputChangeAction( $event: {keyWord: string} ): void {
+    private setAllAdsWithApi(): void {
+        this.adsService.findAllAds().then(
+            (ads) => {
+                if (ads.length > 0) {
+                    this.totalAds = ads;
+                    this.adsPage = ads.slice(this.totalAds.length -8, this.totalAds.length);
+                }
+            }
+        );
+    }
+
+    public handleOnInputChangeAction($event: { keyWord: string }): void {
         if ($event) {
             this.adsService.findByKeyWord($event.keyWord).then(
                 (ads) => {
@@ -93,7 +103,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
         }
     }
 
-    public handleAddAdAction() : void {
+    public handleAddAdAction(): void {
         this.dynamicDialogRef = this.dialogService.open(
             NewAdFormComponent,
             {
@@ -108,12 +118,12 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
         );
 
         this.dynamicDialogRef.onClose
-        .pipe(takeUntil(this.$destroy))
-        .subscribe({
-            next: () => {
-                console.log('onClose()')
-            }
-        });
+            .pipe(takeUntil(this.$destroy))
+            .subscribe({
+                next: () => {
+                    this.setAllAdsWithApi();
+                }
+            });
     }
 
     public ngOnDestroy(): void {
