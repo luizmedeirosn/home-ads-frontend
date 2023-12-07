@@ -1,13 +1,18 @@
+import { AdDataRequest } from 'src/app/models/interfaces/request/AdDataRequest';
+import { AdDataFullResponse } from './../../models/interfaces/response/AdDataFullResponse';
 import { Injectable } from '@angular/core';
 import { FilterService } from 'primeng/api';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
-import { AdDataMin } from 'src/app/models/interfaces/AdDataMin';
+import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AdsService {
-    private readonly ads: Array<AdDataMin> = [
+
+    private incrementId: number = 17;
+
+    private readonly ads: Array<AdDataMinResponse> = [
         {
             id: 1,
             name: 'Combo toalhas de banho',
@@ -172,18 +177,18 @@ export class AdsService {
 
     public filterCategoryActivated!: { activated: boolean; category: AdCategoryEnum | undefined };
 
-    public constructor(private primeFilterService: FilterService) {}
+    public constructor(private primeFilterService: FilterService) { }
 
-    public findAllAds(): Promise<Array<AdDataMin>> {
+    public findAllAds(): Promise<Array<AdDataMinResponse>> {
         return Promise.resolve(this.ads);
     }
 
-    public findAdsPerPage(begin: number, end: number): Promise<Array<AdDataMin>> {
+    public findAdsPerPage(begin: number, end: number): Promise<Array<AdDataMinResponse>> {
         return Promise.resolve(this.ads.slice(begin, begin + end));
     }
 
-    async findByKeyWord(keyWord: string): Promise<Array<AdDataMin>> {
-        let ads: Array<AdDataMin> = new Array();
+    async findByKeyWord(keyWord: string): Promise<Array<AdDataMinResponse>> {
+        let ads: Array<AdDataMinResponse> = new Array();
         if (this.filterCategoryActivated?.activated && this.filterCategoryActivated?.category) {
             await this.findByCategory(this.filterCategoryActivated.category).then(
                 (filteredAds) => {
@@ -193,7 +198,7 @@ export class AdsService {
         } else {
             ads = this.ads;
         }
-        const filteredAds: Array<AdDataMin> = ads.filter((x) =>
+        const filteredAds: Array<AdDataMinResponse> = ads.filter((x) =>
             this.primeFilterService.filters['contains'](
                 x.name.toLowerCase().split(" ").map(x => x.trim()).reduce((a, b) => a + b, ""),
                 keyWord.toLowerCase().split(" ").map(x => x.trim()).reduce((a, b) => a + b, "")
@@ -203,8 +208,8 @@ export class AdsService {
         return Promise.resolve(filteredAds);
     }
 
-    public findByCategory(category: AdCategoryEnum): Promise<Array<AdDataMin>> {
-        const filteredAds: Array<AdDataMin> = this.ads.filter((x) =>
+    public findByCategory(category: AdCategoryEnum): Promise<Array<AdDataMinResponse>> {
+        const filteredAds: Array<AdDataMinResponse> = this.ads.filter((x) =>
             this.primeFilterService.filters['contains'](x.category, category)
         );
 
@@ -221,5 +226,23 @@ export class AdsService {
             };
             return Promise.resolve(this.ads);
         }
+    }
+
+    public save(adRequest: AdDataRequest): Promise<AdDataFullResponse> {
+        const ad: AdDataFullResponse = {
+            id: this.incrementId++,
+            name: adRequest.name,
+            description: adRequest.description,
+            image: `../../../assets/furniture/escrivaninha.webp`,
+            price: adRequest.price,
+            rating: adRequest.rating,
+            category: adRequest.category,
+            userId: adRequest.userId,
+            userName: adRequest.userName,
+            userLocation: adRequest.userLocation,
+            publicationDate: adRequest.publicationDate,
+        }
+        this.ads.push(ad);
+        return Promise.resolve(ad);
     }
 }
