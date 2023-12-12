@@ -7,10 +7,11 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { SidebarModule } from 'primeng/sidebar';
 import { FormControlAlertComponent } from './components/form-control-alert/form-control-alert.component';
 import { LoadingComponent } from './components/loading/loading.component';
-import { ProgressBarModule } from 'primeng/progressbar';
 @NgModule({
     declarations: [
         SidebarNavigationComponent,
@@ -30,6 +31,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
         CardModule,
         ProgressBarModule,
     ],
-    exports: [SidebarNavigationComponent, FormControlAlertComponent, LoadingComponent]
+    exports: [SidebarNavigationComponent, FormControlAlertComponent, LoadingComponent],
+    providers: [DialogService]
 })
 export class SharedModule { }

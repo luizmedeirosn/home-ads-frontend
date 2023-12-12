@@ -8,6 +8,7 @@ import { FileUploadEvent } from 'primeng/fileupload';
 import { Observable, of } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { AdDataRequest } from 'src/app/models/interfaces/request/AdDataRequest';
+import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
 
 @Component({
     selector: 'app-new-ad-form',
@@ -41,12 +42,13 @@ export class NewAdFormComponent {
     ];
 
     public constructor(
+        private adsSerivce: AdsService,
+        private messageService: MessageService,
         private formBuilder: FormBuilder,
         private dynamicDialogConfig: DynamicDialogConfig,
-        private messageService: MessageService,
-
-        private adsSerivce: AdsService,
+        private customDialogService: CustomDialogService,
     ) { }
+
 
     public handleSubmitAddAd(): void {
         if (this.newAdForm?.valid && this.newAdForm?.value) {
@@ -74,6 +76,8 @@ export class NewAdFormComponent {
                     }
                 }
             );
+
+            this.customDialogService.close();
         }
     }
 

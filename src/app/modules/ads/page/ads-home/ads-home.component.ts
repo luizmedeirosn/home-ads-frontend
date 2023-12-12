@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
+import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
 import { AdsService } from 'src/app/services/ads/ads.service';
 import { NewAdFormComponent } from '../../components/new-ad-form/new-ad-form.component';
 
@@ -20,13 +21,13 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
     public totalAds!: Array<AdDataMinResponse>;
     public adsPage!: Array<AdDataMinResponse>;
 
-    private dynamicDialogRef!: DynamicDialogRef;
+    public dynamicDialogRef!: DynamicDialogRef;
 
     public constructor(
+        private adsService: AdsService,
         private messageService: MessageService,
-        private dialogService: DialogService,
+        private customDialogService: CustomDialogService,
 
-        private adsService: AdsService
     ) { }
 
     public ngOnInit(): void {
@@ -99,7 +100,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
     }
 
     public handleAddAdAction(): void {
-        this.dynamicDialogRef = this.dialogService.open(
+        this.dynamicDialogRef = this.customDialogService.open(
             NewAdFormComponent,
             {
                 header: 'Cadastre de um novo anúncio',
@@ -116,6 +117,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.$destroy))
             .subscribe({
                 next: () => {
+                    console.log('close')
                     this.setAllAdsWithApi();
                 }
             });

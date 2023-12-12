@@ -28,7 +28,7 @@ export class SidebarNavigationComponent implements OnInit {
 
     public sidebarVisible: boolean = false;
 
-    public $isLoggedIn!: Subject<boolean>;
+    public $isLoggedIn: Subject<boolean> = new Subject();
 
     public constructor(
         private router: Router,

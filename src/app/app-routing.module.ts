@@ -20,7 +20,6 @@ const routes: Routes = [
     {
         path: 'ads',
         loadChildren: () => import('./modules/ads/ads.module').then(m => m.AdsModule),
-        canActivate: [AuthGuardService]
 
     },
     {

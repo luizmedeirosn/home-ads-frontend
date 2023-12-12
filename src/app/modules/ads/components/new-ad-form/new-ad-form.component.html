@@ -35,12 +35,12 @@
         <input
             pInputText
             placeholder="Informe o valor do produto adquirido (ex: 3999,99)"
-            formControlName="price"
+            formControlName="averagePrice"
             style="background-color: whitesmoke"
         />
         <app-form-control-alert
             [form]="newAdForm"
-            [controlName]="'price'"
+            [controlName]="'averagePrice'"
             [minNumberCharacters]="1"
             [maxNumberCharacters]="15"
         ></app-form-control-alert>

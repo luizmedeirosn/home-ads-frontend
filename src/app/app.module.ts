@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { HttpClientModule } from '@angular/common/http';
+import { DialogService } from 'primeng/dynamicdialog';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 
         ToastModule,
     ],
-    providers: [MessageService, CookieService],
+    providers: [MessageService, CookieService, DialogService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
