@@ -14,12 +14,14 @@ import { FormControlAlertComponent } from './components/form-control-alert/form-
 import { LoadingComponent } from './components/loading/loading.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { SignupComponent } from './components/signup/signup.component';
 @NgModule({
     declarations: [
         SidebarNavigationComponent,
         FormControlAlertComponent,
         LoadingComponent,
         SigninComponent,
+        SignupComponent,
     ],
     imports: [
         CommonModule,

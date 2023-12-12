@@ -9,11 +9,13 @@ import {
     faRightToBracket,
     faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
+import { CookieService } from 'ngx-cookie-service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
 import { SigninComponent } from '../signin/signin.component';
 import { UserService } from './../../../../services/user/user.service';
+import { SignupComponent } from '../signup/signup.component';
 
 @Component({
     selector: 'app-sidebar-navigation',
@@ -21,7 +23,6 @@ import { UserService } from './../../../../services/user/user.service';
     styleUrls: [],
 })
 export class SidebarNavigationComponent implements OnInit, OnDestroy {
-
     private $destroy: Subject<void> = new Subject();
 
     public readonly faSiginIcon: IconDefinition = faRightToBracket;
@@ -41,6 +42,7 @@ export class SidebarNavigationComponent implements OnInit, OnDestroy {
         private router: Router,
         private userService: UserService,
         private customDialogService: CustomDialogService,
+        private cookieService: CookieService
     ) { }
 
     public ngOnInit(): void {
@@ -64,16 +66,29 @@ export class SidebarNavigationComponent implements OnInit, OnDestroy {
                 baseZIndex: 10000,
             }
         );
+    }
 
-        this.dynamicDialogRef.onClose
-            .pipe(takeUntil(this.$destroy))
-            .subscribe({
-                next: () => {
-                    if (this.userService.isLoggedIn()) {
-                        this.$isLoggedIn.next(true);
-                    }
-                }
-            });
+    public handleSignupEvent(): void {
+        this.dynamicDialogRef = this.customDialogService.open(
+            SignupComponent,
+            {
+                position: 'top',
+                header: 'Criar uma conta',
+                width: '40%',
+                style: {
+                    'margin-top': '36px',
+                },
+                contentStyle: {
+                    overflow: 'auto',
+                },
+                baseZIndex: 10000,
+            }
+        );
+    }
+
+    public handleLogoutEvent(): void {
+        this.cookieService.delete('JWT_TOKEN');
+        this.router.navigate(['/home']);
     }
 
     public ngOnDestroy(): void {

@@ -13,6 +13,7 @@
     <p-button
         styleClass="bg-gray-900 hover:bg-gray-800 border-none p-2 gap-2 w-full"
         label="Cadastre-se"
+        (onClick)="handleSignupEvent()"
     >
         <fa-icon size="sm" [icon]="faSigupIcon"></fa-icon>
     </p-button>
@@ -48,6 +49,7 @@
                     <p-button
                         styleClass="sidebar-button-color mt-3 text-lg font-bold border-none w-full text-left gap-3"
                         label="Sair"
+                        (onClick)="handleLogoutEvent()"
                     >
                         <fa-icon [icon]="faLogoutIcon"></fa-icon>
                     </p-button>

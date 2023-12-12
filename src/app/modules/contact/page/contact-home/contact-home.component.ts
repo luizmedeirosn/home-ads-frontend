@@ -10,6 +10,6 @@ export class ContactHomeComponent implements OnInit {
     public $loaded: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     public ngOnInit(): void {
-        setTimeout(() => this.$loaded.next(true), 1500);
+        setTimeout(() => this.$loaded.next(true), 1000);
     }
 }
