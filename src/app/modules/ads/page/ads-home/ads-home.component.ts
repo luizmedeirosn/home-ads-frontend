@@ -35,7 +35,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             this.$loaded.next(true);
             this.messageService.clear();
             this.messageService.add({
-                key: 'adsToast',
+                key: 'center',
                 severity: 'success',
                 summary: 'Sucesso',
                 detail: 'Anúncios carregados com sucesso!',
