@@ -1,4 +1,7 @@
-<div *ngIf="true" class="flex justify-content-end bg-gray-900 gap-2">
+<div
+    *ngIf="!($isLoggedIn | async)"
+    class="flex justify-content-end bg-gray-900 gap-2"
+>
     <p-button
         styleClass="bg-gray-900 hover:bg-gray-800 border-none p-2 gap-2 w-full"
         label="Entre"
@@ -52,7 +55,7 @@
         </p-sidebar>
 
         <p-button
-            *ngIf="true"
+            *ngIf="$isLoggedIn | async"
             (onClick)="sidebarVisible = true"
             styleClass="sidebar-button-color border-none gap-3 flex justify-content-center"
         >
