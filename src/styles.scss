@@ -58,14 +58,6 @@ text, span {
     border-radius: 6px;
 }
 
-.p-card-content {
-    padding: 0;
-}
-
-.p-card-body {
-    padding: 0.3rem;
-}
-
 .p-carousel-indicators {
     padding: 0.5rem;
 }
@@ -143,10 +135,15 @@ p {
 .p-dialog-header {
     color: white;
     background-color: var(--blue-1) !important;
+    padding: 1rem !important;
 }
 
 .p-dialog-content {
     background-color: whitesmoke !important;
+}
+
+.p-dialog-content:last-of-type {
+    border-radius: 10px !important;
 }
 
 .choose-icon {

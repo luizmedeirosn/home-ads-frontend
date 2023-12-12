@@ -6,7 +6,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -48,7 +47,6 @@ import { AdsHomeComponent } from './page/ads-home/ads-home.component';
         DropdownModule,
         TooltipModule,
         DynamicDialogModule,
-        ConfirmDialogModule,
         FileUploadModule,
     ],
     providers: [

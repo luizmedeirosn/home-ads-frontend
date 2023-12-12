@@ -1,4 +1,3 @@
-import { UserService } from './../../../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -10,7 +9,11 @@ import {
     faRightToBracket,
     faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subject } from 'rxjs';
+import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
+import { SigninComponent } from '../signin/signin.component';
+import { UserService } from './../../../../services/user/user.service';
 
 @Component({
     selector: 'app-sidebar-navigation',
@@ -30,13 +33,34 @@ export class SidebarNavigationComponent implements OnInit {
 
     public $isLoggedIn: Subject<boolean> = new Subject();
 
+    private dynamicDialogRef!: DynamicDialogRef;
+
     public constructor(
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private customDialogService: CustomDialogService,
     ) { }
 
     public ngOnInit(): void {
         this.$isLoggedIn.next(this.userService.isLoggedIn());
     }
 
+
+    public handleSigninEvent() {
+        this.dynamicDialogRef = this.customDialogService.open(
+            SigninComponent,
+            {
+                position: 'top',
+                header: 'Login',
+                width: '30%',
+                style: {
+                    'margin-top': '36px',
+                },
+                contentStyle: {
+                    overflow: 'auto',
+                },
+                baseZIndex: 10000,
+            }
+        );
+    }
 }

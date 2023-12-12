@@ -12,7 +12,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { SidebarModule } from 'primeng/sidebar';
 import { FormControlAlertComponent } from './components/form-control-alert/form-control-alert.component';
 import { LoadingComponent } from './components/loading/loading.component';
-import { SigninComponent } from './components/signin/signin/signin.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
     declarations: [
         SidebarNavigationComponent,
@@ -32,6 +33,8 @@ import { SigninComponent } from './components/signin/signin/signin.component';
         ButtonModule,
         CardModule,
         ProgressBarModule,
+        ButtonModule,
+        InputTextModule,
     ],
     exports: [SidebarNavigationComponent, FormControlAlertComponent, LoadingComponent],
     providers: [DialogService]

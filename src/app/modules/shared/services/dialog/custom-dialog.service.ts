@@ -14,6 +14,9 @@ export class CustomDialogService {
     }
 
     public open(component: any, styles: any): DynamicDialogRef {
+        if (this.dynamicDialogRef) {
+            this.dynamicDialogRef.destroy();
+        }
         this.dynamicDialogRef = this.dialogService.open(component, styles);
         return this.dynamicDialogRef;
     }

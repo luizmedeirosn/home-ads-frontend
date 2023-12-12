@@ -1,7 +1,7 @@
 <form
     [formGroup]="newAdForm"
     (ngSubmit)="handleSubmitAddAd()"
-    class="flex justify-content-center align-items-center"
+    class="flex flex-column align-items-center m-3 gap-3"
 >
     <div
         class="card flex flex-column md:flex-column align-content-center w-full m-3 gap-3"
@@ -21,7 +21,7 @@
 
         <input
             pInputText
-            placeholder="Comentário"
+            placeholder="Deixe o seu comentário"
             formControlName="comment"
             style="background-color: whitesmoke"
         />

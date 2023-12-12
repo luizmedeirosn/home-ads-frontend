@@ -13,12 +13,15 @@ import { UserService } from 'src/app/services/user/user.service';
     styleUrls: []
 })
 export class SigninComponent {
+    handleSubmitSigninForm() {
+        throw new Error('Method not implemented.');
+    }
 
     private destroy$: Subject<void> = new Subject<void>();
 
-    public loginForm: FormGroup = this.formBuilder.group({
-        email: ['', Validators.required, Validators.email],
-        password: ['', Validators.required, Validators.minLength(3)]
+    public signinForm: FormGroup = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email, Validators.minLength(11), Validators.maxLength(50)]],
+        password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]]
     });
 
     public constructor(
@@ -30,15 +33,15 @@ export class SigninComponent {
     ) {
     }
 
-    public onSubmitLoginForm(): void {
-        if (this.loginForm.value && this.loginForm.valid) {
-            this.userService.signin(this.loginForm.value as SigninDTO)
+    public onSubmitsigninForm(): void {
+        if (this.signinForm.value && this.signinForm.valid) {
+            this.userService.signin(this.signinForm.value as SigninDTO)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe({
                     next: (tokenDTO) => {
                         if (tokenDTO) {
                             this.cookieSerivce.set('JWT_TOKEN', tokenDTO.JWT_TOKEN);
-                            this.loginForm.reset();
+                            this.signinForm.reset();
                             this.router.navigate(['/ads']);
                         }
                     },
