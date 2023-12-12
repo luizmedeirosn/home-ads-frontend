@@ -1,6 +1,4 @@
-<div *ngIf="true"
-    class="flex justify-content-end bg-gray-900 gap-2"
->
+<div *ngIf="true" class="flex justify-content-end bg-gray-900 gap-2">
     <p-button
         styleClass="bg-gray-900 hover:bg-gray-800 border-none p-2 gap-2 w-full"
         label="Entre"
@@ -23,19 +21,23 @@
             styleClass="sidebar-color text-white-alpha-90"
         >
             <div class="flex flex-column">
-                <span class="text-4xl font-bold text-white-alpha-90 p-3">HomeAds</span>
+                <span class="text-4xl font-bold text-white-alpha-90 p-3"
+                    >HomeAds</span
+                >
                 <div class="mt-2">
                     <p-button
                         styleClass="sidebar-button-color mt-3 text-lg font-bold border-none w-full text-left gap-3"
                         label="Anúncios"
-                        (onClick)="goToRouteAndReload('/ads')"
+                        routerLink="/ads"
+                        routerLinkActive="exact_route"
                     >
                         <fa-icon [icon]="faAdsIcon"></fa-icon>
                     </p-button>
                     <p-button
                         styleClass="sidebar-button-color mt-3 text-lg font-bold border-none w-full text-left gap-3"
                         label="Contato"
-                        (onClick)="goToRouteAndReload('/contact')"
+                        routerLink="/contact"
+                        routerLinkActive="exact_route"
                     >
                         <fa-icon [icon]="faContactIcon"></fa-icon>
                     </p-button>
@@ -49,7 +51,8 @@
             </div>
         </p-sidebar>
 
-        <p-button *ngIf="true"
+        <p-button
+            *ngIf="true"
             (onClick)="sidebarVisible = true"
             styleClass="sidebar-button-color border-none gap-3 flex justify-content-center"
         >
@@ -59,13 +62,15 @@
         <p-button
             styleClass="sidebar-button-color text-xl border-none"
             label="Home"
-            (onClick)="goToRouteAndReload('/home')"
+            routerLink="/home"
+            routerLinkActive="exact_route"
         ></p-button>
 
         <p-button
             styleClass="sidebar-button-color text-xl border-none"
             label="Quem somos"
-            (onClick)="goToRouteAndReload('/about-us')"
+            routerLink="/about-us"
+            routerLinkActive="exact_route"
         ></p-button>
     </div>
 </div>

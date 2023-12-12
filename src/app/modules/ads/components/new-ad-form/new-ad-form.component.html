@@ -9,27 +9,27 @@
         <input
             pInputText
             placeholder="Título do anúncio"
-            formControlName="name"
+            formControlName="title"
             style="background-color: whitesmoke"
         />
         <app-form-control-alert
             [form]="newAdForm"
-            [controlName]="'name'"
+            [controlName]="'title'"
             [minNumberCharacters]="3"
             [maxNumberCharacters]="50"
         ></app-form-control-alert>
 
         <input
             pInputText
-            placeholder="Descrição"
-            formControlName="description"
+            placeholder="Comentário"
+            formControlName="comment"
             style="background-color: whitesmoke"
         />
         <app-form-control-alert
             [form]="newAdForm"
-            [controlName]="'description'"
+            [controlName]="'comment'"
             [minNumberCharacters]="40"
-            [maxNumberCharacters]="300"
+            [maxNumberCharacters]="1000"
         ></app-form-control-alert>
 
         <input

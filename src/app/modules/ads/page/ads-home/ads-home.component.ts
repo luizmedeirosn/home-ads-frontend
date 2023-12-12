@@ -4,8 +4,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
-import { AdsService } from 'src/app/services/ads/ads-service.service';
-import { ReloadService } from 'src/app/services/reload/reload-service.service';
+import { AdsService } from 'src/app/services/ads/ads.service';
 import { NewAdFormComponent } from '../../components/new-ad-form/new-ad-form.component';
 
 @Component({
@@ -16,7 +15,7 @@ import { NewAdFormComponent } from '../../components/new-ad-form/new-ad-form.com
 export class AdsHomeComponent implements OnInit, OnDestroy {
     private $destroy: Subject<void> = new Subject();
 
-    public $viewEnable: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public $loaded: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     public totalAds!: Array<AdDataMinResponse>;
     public adsPage!: Array<AdDataMinResponse>;
@@ -24,7 +23,6 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
     private dynamicDialogRef!: DynamicDialogRef;
 
     public constructor(
-        private reloadService: ReloadService,
         private messageService: MessageService,
         private dialogService: DialogService,
 
@@ -32,26 +30,23 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
-        if (this.reloadService.shouldReload()) {
-            this.reloadService.setReloadFlag(false);
-            window.location.reload();
-        }
-        window.addEventListener('load', () => {
-            this.$viewEnable.next(true);
-        });
+        setTimeout(() => {
+            this.$loaded.next(true);
+            this.messageService.clear();
+            this.messageService.add({
+                key: 'adsToast',
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: 'Anúncios carregados com sucesso!',
+                life: 2500,
+            });
+        }, 1500)
+
         this.adsService.findAllAds().then(
             (ads) => {
                 if (ads.length > 0) {
                     this.totalAds = ads;
                     this.adsPage = ads.slice(0, 8);
-                    this.messageService.clear();
-                    this.messageService.add({
-                        key: 'adsToast',
-                        severity: 'success',
-                        summary: 'Sucesso',
-                        detail: 'Anúncios carregados com sucesso!',
-                        life: 2500,
-                    });
                 }
             }
         );
@@ -62,7 +57,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             (ads) => {
                 if (ads.length > 0) {
                     this.totalAds = ads;
-                    this.adsPage = ads.slice(this.totalAds.length -8, this.totalAds.length);
+                    this.adsPage = ads.slice(this.totalAds.length - 8, this.totalAds.length);
                 }
             }
         );

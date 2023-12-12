@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
-import { AdsService } from 'src/app/services/ads/ads-service.service';
-import { ReloadService } from 'src/app/services/reload/reload-service.service';
+import { AdsService } from 'src/app/services/ads/ads.service';
 
 @Component({
     selector: 'app-home-page',
@@ -10,26 +9,21 @@ import { ReloadService } from 'src/app/services/reload/reload-service.service';
     styleUrls: [],
 })
 export class HomePageComponent implements OnInit {
-    public $viewEnable: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public $loaded: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
     public ads!: Array<AdDataMinResponse>;
 
     constructor(
-        private reloadService: ReloadService,
         private adsService: AdsService
-    ) {}
+    ) { }
 
     public ngOnInit(): void {
-        if (this.reloadService.shouldReload()) {
-            this.reloadService.setReloadFlag(false);
-            window.location.reload();
-        }
-        window.addEventListener('load', () => {
-            this.$viewEnable.next(true);
-        });
+        setTimeout(() => this.$loaded.next(true), 1500);
         this.adsService.findAllAds().then((ads) => {
             if (ads.length > 0) {
                 this.ads = ads;
             }
         });
     }
+
 }

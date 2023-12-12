@@ -2,16 +2,13 @@ import { AdCategoryEnum } from "../../enums/AdCategoriesEnum";
 
 export interface AdDataFullResponse {
 
-    id: number;
-    name: string;
-    description: string;
-    image: string;
-    price: number
+    title: string;
+    comment: string;
+    image: File;
+    averagePrice: number;
     rating: number;
     category: AdCategoryEnum;
-    userId: number;
     userName: string;
-    userLocation: string;
     publicationDate: Date;
 
 }

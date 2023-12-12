@@ -9,7 +9,6 @@ import {
     faRightToBracket,
     faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
-import { ReloadService } from 'src/app/services/reload/reload-service.service';
 
 @Component({
     selector: 'app-sidebar-navigation',
@@ -28,11 +27,6 @@ export class SidebarNavigationComponent {
 
     public constructor(
         private router: Router,
-        private reloadService: ReloadService
-    ) {}
+    ) { }
 
-    public goToRouteAndReload(route: string): void {
-        this.router.navigate([route]);
-        this.reloadService.setReloadFlag(true);
-    }
 }

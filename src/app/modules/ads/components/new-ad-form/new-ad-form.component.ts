@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { AdsService } from 'src/app/services/ads/ads-service.service';
+import { AdsService } from 'src/app/services/ads/ads.service';
 
 import { FileUploadEvent } from 'primeng/fileupload';
 import { Observable, of } from 'rxjs';
@@ -25,9 +25,9 @@ export class NewAdFormComponent {
     }
 
     public newAdForm = this.formBuilder.group({
-        name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-        description: ['', [Validators.required, Validators.minLength(40), Validators.maxLength(300)]],
-        price: ['', Validators.required, this.priceValidadorAsync],
+        title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+        comment: ['', [Validators.required, Validators.minLength(40), Validators.maxLength(1000)]],
+        averagePrice: ['', Validators.required, this.priceValidadorAsync],
         rating: ['', Validators.required],
         category: ['', Validators.required],
     });
@@ -51,15 +51,13 @@ export class NewAdFormComponent {
     public handleSubmitAddAd(): void {
         if (this.newAdForm?.valid && this.newAdForm?.value) {
             const adResquest: AdDataRequest = {
-                name: this.newAdForm.value.name as string,
-                description: this.newAdForm.value.description as string,
+                title: this.newAdForm.value.title as string,
+                comment: this.newAdForm.value.comment as string,
                 image: this.image,
-                price: Number(this.newAdForm.value.price?.replace(',', '.')),
+                averagePrice: Number(this.newAdForm.value.averagePrice?.replace(',', '.')),
                 rating: Number(this.newAdForm.value.rating),
-                category:  this.newAdForm.value.category as AdCategoryEnum,
-                userId: 1,
+                category: this.newAdForm.value.category as AdCategoryEnum,
                 userName: "Admin",
-                userLocation: "Campina Grande - PB",
                 publicationDate: new Date(),
             };
 
@@ -79,7 +77,7 @@ export class NewAdFormComponent {
         }
     }
 
-    addAdImage($event: FileUploadEvent) {
+    public addAdImage($event: FileUploadEvent): void {
         throw new Error('Method not implemented.');
     }
 

@@ -1,6 +1,6 @@
-<div *ngIf="$viewEnable | async">
-    <app-sidebar-navigation></app-sidebar-navigation>
+<app-sidebar-navigation></app-sidebar-navigation>
 
+<div *ngIf="$loaded | async; else loading">
     <app-ads-list
         [totalAds]="totalAds"
         [adsPage]="adsPage"
@@ -11,5 +11,8 @@
     ></app-ads-list>
 
     <p-confirmDialog [style]="{ width: '25vw' }"></p-confirmDialog>
-
 </div>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

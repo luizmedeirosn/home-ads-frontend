@@ -9,24 +9,27 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { SidebarModule } from 'primeng/sidebar';
 import { FormControlAlertComponent } from './components/form-control-alert/form-control-alert.component';
-
+import { LoadingComponent } from './components/loading/loading.component';
+import { ProgressBarModule } from 'primeng/progressbar';
 @NgModule({
-  declarations: [
-    SidebarNavigationComponent,
-    FormControlAlertComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
+    declarations: [
+        SidebarNavigationComponent,
+        FormControlAlertComponent,
+        LoadingComponent,
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
 
-    FontAwesomeModule,
+        FontAwesomeModule,
 
-    SidebarModule,
-    ButtonModule,
-    CardModule,
-  ],
-  exports: [ SidebarNavigationComponent, FormControlAlertComponent ]
+        SidebarModule,
+        ButtonModule,
+        CardModule,
+        ProgressBarModule,
+    ],
+    exports: [SidebarNavigationComponent, FormControlAlertComponent, LoadingComponent]
 })
 export class SharedModule { }

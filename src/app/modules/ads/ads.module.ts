@@ -24,36 +24,36 @@ import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
-  declarations: [
-    AdsHomeComponent,
-    AdsListComponent,
-    NewAdFormComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(ADS_ROUTES),
-    FormsModule,
-    ReactiveFormsModule,
+    declarations: [
+        AdsHomeComponent,
+        AdsListComponent,
+        NewAdFormComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(ADS_ROUTES),
+        FormsModule,
+        ReactiveFormsModule,
 
-    FontAwesomeModule,
+        FontAwesomeModule,
 
-    SharedModule,
+        SharedModule,
 
-    CardModule,
-    RatingModule,
-    ButtonModule,
-    InputTextModule,
-    InputMaskModule,
-    PaginatorModule,
-    DropdownModule,
-    TooltipModule,
-    DynamicDialogModule,
-    ConfirmDialogModule,
-    FileUploadModule,
-  ],
-  providers: [
-    DialogService,
-    ConfirmationService
-  ]
+        CardModule,
+        RatingModule,
+        ButtonModule,
+        InputTextModule,
+        InputMaskModule,
+        PaginatorModule,
+        DropdownModule,
+        TooltipModule,
+        DynamicDialogModule,
+        ConfirmDialogModule,
+        FileUploadModule,
+    ],
+    providers: [
+        DialogService,
+        ConfirmationService
+    ]
 })
 export class AdsModule { }
