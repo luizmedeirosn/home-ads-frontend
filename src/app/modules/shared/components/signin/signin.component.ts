@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 import { SigninDTO } from 'src/app/models/interfaces/request/SigninDTO';
 import { UserService } from 'src/app/services/user/user.service';
+import { CustomDialogService } from '../../services/dialog/custom-dialog.service';
 
 @Component({
     selector: 'app-signin',
@@ -13,9 +14,6 @@ import { UserService } from 'src/app/services/user/user.service';
     styleUrls: []
 })
 export class SigninComponent {
-    handleSubmitSigninForm() {
-        throw new Error('Method not implemented.');
-    }
 
     private destroy$: Subject<void> = new Subject<void>();
 
@@ -29,11 +27,12 @@ export class SigninComponent {
         private userService: UserService,
         private cookieSerivce: CookieService,
         private messageService: MessageService,
-        private router: Router
+        private router: Router,
+        private customDialogService: CustomDialogService,
     ) {
     }
 
-    public onSubmitsigninForm(): void {
+    public handleSubmitSigninForm(): void {
         if (this.signinForm.value && this.signinForm.valid) {
             this.userService.signin(this.signinForm.value as SigninDTO)
                 .pipe(takeUntil(this.destroy$))
@@ -43,6 +42,7 @@ export class SigninComponent {
                             this.cookieSerivce.set('JWT_TOKEN', tokenDTO.JWT_TOKEN);
                             this.signinForm.reset();
                             this.router.navigate(['/ads']);
+                            this.customDialogService.close();
                         }
                     },
                     error: (err) => {

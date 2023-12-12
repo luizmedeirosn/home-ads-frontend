@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
     IconDefinition,
@@ -10,7 +10,7 @@ import {
     faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
 import { SigninComponent } from '../signin/signin.component';
 import { UserService } from './../../../../services/user/user.service';
@@ -20,7 +20,9 @@ import { UserService } from './../../../../services/user/user.service';
     templateUrl: './sidebar-navigation.component.html',
     styleUrls: [],
 })
-export class SidebarNavigationComponent implements OnInit {
+export class SidebarNavigationComponent implements OnInit, OnDestroy {
+
+    private $destroy: Subject<void> = new Subject();
 
     public readonly faSiginIcon: IconDefinition = faRightToBracket;
     public readonly faSigupIcon: IconDefinition = faUserPlus;
@@ -31,7 +33,7 @@ export class SidebarNavigationComponent implements OnInit {
 
     public sidebarVisible: boolean = false;
 
-    public $isLoggedIn: Subject<boolean> = new Subject();
+    public $isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     private dynamicDialogRef!: DynamicDialogRef;
 
@@ -52,7 +54,7 @@ export class SidebarNavigationComponent implements OnInit {
             {
                 position: 'top',
                 header: 'Login',
-                width: '30%',
+                width: '40%',
                 style: {
                     'margin-top': '36px',
                 },
@@ -62,5 +64,20 @@ export class SidebarNavigationComponent implements OnInit {
                 baseZIndex: 10000,
             }
         );
+
+        this.dynamicDialogRef.onClose
+            .pipe(takeUntil(this.$destroy))
+            .subscribe({
+                next: () => {
+                    if (this.userService.isLoggedIn()) {
+                        this.$isLoggedIn.next(true);
+                    }
+                }
+            });
+    }
+
+    public ngOnDestroy(): void {
+        this.$destroy.next();
+        this.$destroy.complete();
     }
 }

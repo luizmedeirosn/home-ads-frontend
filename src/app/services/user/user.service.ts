@@ -26,7 +26,7 @@ export class UserService {
 
     public signin(signin: SigninDTO): Observable<TokenDto> {
         return this.httpClient.post<TokenDto>(
-            `${this.API_URL}/auth`,
+            `${this.API_URL}/auth/signin`,
             signin
         )
     }

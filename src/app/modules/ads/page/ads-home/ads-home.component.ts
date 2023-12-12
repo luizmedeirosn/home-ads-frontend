@@ -117,7 +117,6 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.$destroy))
             .subscribe({
                 next: () => {
-                    console.log('close')
                     this.setAllAdsWithApi();
                 }
             });

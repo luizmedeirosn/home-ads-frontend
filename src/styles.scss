@@ -58,8 +58,16 @@ text, span {
     border-radius: 6px;
 }
 
-.p-carousel-indicators {
+.p-card-content {
+    padding: 0;
+}
+
+.p-card-body {
     padding: 0.5rem;
+}
+
+.p-carousel-indicators {
+    padding: 0.8rem;
 }
 
 .image-card {
@@ -142,13 +150,13 @@ p {
     background-color: whitesmoke !important;
 }
 
-.p-dialog-content:last-of-type {
-    border-radius: 10px !important;
-}
-
 .choose-icon {
     color: var(--black-1);
     svg {
         color: var(--black-1) !important;
     }
+}
+
+.p-dialog-content:last-of-type {
+    border-radius: 10px !important;
 }
