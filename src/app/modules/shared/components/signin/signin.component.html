@@ -1,0 +1,36 @@
+<form
+    [formGroup]="signinForm"
+    (ngSubmit)="handleSubmitSigninForm()"
+    class="flex flex-column align-items-center m-3 gap-3"
+>
+    <div class="flex justify-content-center align-content-center">
+        <input
+            type="email"
+            pInputText
+            placeholder="Email"
+            formControlName="email"
+            style="background-color: whitesmoke"
+            class="w-30rem"
+        />
+    </div>
+    <div class="flex justify-content-center align-content-center">
+        <input
+            type="password"
+            pInputText
+            placeholder="Password"
+            formControlName="password"
+            style="background-color: whitesmoke"
+            class="w-30rem"
+        />
+    </div>
+    <div class="card flex justify-content-center mt-3 cursor-pointer">
+        <button
+            [disabled]="!this.signinForm.valid"
+            type="submit"
+            pButton
+            pRipple
+            class="p-button-success"
+            label="Entrar"
+        ></button>
+    </div>
+</form>

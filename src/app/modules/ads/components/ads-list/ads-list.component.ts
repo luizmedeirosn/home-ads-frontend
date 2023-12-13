@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
     IconDefinition,
+    faPlus,
     faSearch,
     faTag,
     faX,
 } from '@fortawesome/free-solid-svg-icons';
 import { PaginatorState } from 'primeng/paginator';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
-import { AdData } from 'src/app/models/interfaces/AdData';
+import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
 
 @Component({
     selector: 'app-ads-list',
@@ -15,25 +16,27 @@ import { AdData } from 'src/app/models/interfaces/AdData';
     styleUrls: [],
 })
 export class AdsListComponent implements OnInit {
-    @Input() public totalAds!: Array<AdData>;
-    @Input() public adsPage!: Array<AdData>;
+    @Input() public totalAds!: Array<AdDataMinResponse>;
+    @Input() public adsPage!: Array<AdDataMinResponse>;
     @Input() public keyWord!: string;
 
     @Output() public $onInputChangeEvent: EventEmitter<{
         keyWord: string;
     }> = new EventEmitter();
     @Output() public $onDropdownChangeEvent: EventEmitter<{
-        category: AdCategoryEnum;
+        category: AdCategoryEnum | undefined;
     }> = new EventEmitter();
     @Output() public $onPageChangeEvent: EventEmitter<{
         begin: number;
         end: number;
     }> = new EventEmitter();
+    @Output() public $addAdEvent: EventEmitter<void> = new EventEmitter();
 
     public readonly faCategoryIcon: IconDefinition = faTag;
     public readonly faSearchIcon: IconDefinition = faSearch;
     public readonly faSearchAdsIcon: IconDefinition = faSearch;
     public readonly faNotFoundIcon: IconDefinition = faX;
+    public readonly faAddIcon: IconDefinition = faPlus;
 
     public ratingDefaultValue: number = 0;
 
@@ -53,18 +56,24 @@ export class AdsListComponent implements OnInit {
     }
 
     public handleDropdownChangeEvent(): void {
-        const categoryMappings: { [key: string]: AdCategoryEnum } = {
-            'Cama, mesa e banho': AdCategoryEnum.BED_AND_BATH,
-            'Eletrodomésticos': AdCategoryEnum.APPLIANCES,
-            'Móveis': AdCategoryEnum.FURNITURE,
-            'Ferramentas': AdCategoryEnum.TOOLS,
-        };
-        const category: AdCategoryEnum =
-            categoryMappings[this.selectedCategory.category];
+        if (this.selectedCategory) {
+            const categoryMappings: { [key: string]: AdCategoryEnum } = {
+                'Cama, mesa e banho': AdCategoryEnum.BED_AND_BATH,
+                'Eletrodomésticos': AdCategoryEnum.APPLIANCES,
+                'Móveis': AdCategoryEnum.FURNITURE,
+                'Ferramentas': AdCategoryEnum.TOOLS,
+            };
+            const category: AdCategoryEnum =
+                categoryMappings[this.selectedCategory.category];
 
-        this.$onDropdownChangeEvent.emit({
-            category,
-        });
+            this.$onDropdownChangeEvent.emit({
+                category,
+            });
+        } else {
+            this.$onDropdownChangeEvent.emit({
+                category: undefined,
+            });
+        }
     }
 
     public handleInputChangeEvent(): void {
@@ -80,5 +89,9 @@ export class AdsListComponent implements OnInit {
                 end: $event.rows,
             });
         }
+    }
+
+    public handleAddAdEvent() : void {
+        this.$addAdEvent.emit();
     }
 }

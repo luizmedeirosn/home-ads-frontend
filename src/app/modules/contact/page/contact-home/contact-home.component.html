@@ -1,5 +1,7 @@
-<div *ngIf="$viewEnable | async">
-    <app-sidebar-navigation></app-sidebar-navigation>
+<app-sidebar-navigation></app-sidebar-navigation>
 
-    <app-contact-form></app-contact-form>
-</div>
+<app-contact-form *ngIf="$loaded | async; else loading"></app-contact-form>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>
