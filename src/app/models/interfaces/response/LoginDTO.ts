@@ -1,7 +1,7 @@
 export interface LoginDTO {
 
-    userId: number;
-    userRole: string;
+    USER_ID: string;
+    USER_ROLE: string;
     JWT_TOKEN: string;
 
 }

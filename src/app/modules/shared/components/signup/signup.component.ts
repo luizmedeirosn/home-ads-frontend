@@ -40,9 +40,8 @@ export class SignupComponent {
                 .subscribe({
                     next: (loginDTO) => {
                         if (loginDTO) {
-                            console.log(loginDTO)
-                            this.userService.loginInfo = loginDTO;
-                            this.cookieSerivce.delete('JWT_TOKEN');
+                            this.cookieSerivce.set('USER_ID', loginDTO.USER_ID);
+                            this.cookieSerivce.set('USER_ROLE', loginDTO.USER_ROLE);
                             this.cookieSerivce.set('JWT_TOKEN', loginDTO.JWT_TOKEN);
                             this.signupForm.reset();
                             this.router.navigate(['/ads']);

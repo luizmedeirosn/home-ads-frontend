@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { BehaviorSubject } from 'rxjs';
 import { AdDataFullResponse } from 'src/app/models/interfaces/response/AdDataFullResponse';
 import { AdsService } from 'src/app/services/ads/ads.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
     selector: 'app-ad-view',
@@ -17,19 +18,21 @@ export class AdViewComponent {
     public selectedAd!: AdDataFullResponse;
     public ratingDefaultValue: number = 0;
     public readonly faCategoryIcon: IconDefinition = faTag;
-
+    public role!: string;
 
     public constructor(
         private adsService: AdsService,
         private router: Router,
         private messageService: MessageService,
+        private userService: UserService
     ) {
     }
 
     public ngOnInit(): void {
         if (this.adsService.selectedAd) {
-            this.selectedAd = this.adsService.selectedAd;
             setTimeout(() => {
+                this.role = this.userService.getUserRole();
+                this.selectedAd = this.adsService.selectedAd;
                 this.$loaded.next(true);
                 this.messageService.clear();
                 this.messageService.add({
@@ -43,6 +46,14 @@ export class AdViewComponent {
         } else {
             this.router.navigate(['/ads']);
         }
+    }
+
+    public handleEditAdEvent(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    public handleDeleteAdEvent(): void {
+        throw new Error('Method not implemented.');
     }
 
 }

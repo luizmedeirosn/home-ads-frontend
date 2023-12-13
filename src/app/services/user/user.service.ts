@@ -14,8 +14,6 @@ export class UserService {
 
     private readonly API_URL = environment.API_URL;
 
-    public loginInfo!: LoginDTO;
-
     public constructor(private httpClient: HttpClient, private cookieService: CookieService) {
     }
 
@@ -31,6 +29,14 @@ export class UserService {
             `${this.API_URL}/auth/signin`,
             signin
         )
+    }
+
+    public getUserId(): string {
+        return this.cookieService.get('USER_ID');
+    }
+
+    public getUserRole(): string {
+        return this.cookieService.get('USER_ROLE');
     }
 
     public isLoggedIn(): boolean {

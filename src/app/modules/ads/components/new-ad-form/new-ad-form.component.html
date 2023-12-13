@@ -65,9 +65,9 @@
             mode="basic"
             name="image"
             accept="image/*"
+            url="https://www.primefaces.org/cdn/api/upload.php"
             [maxFileSize]="1000000"
-            (onUpload)="addAdImage($event)"
-            [auto]="true"
+            (onUpload)="handleUploadAdImage($event)"
             styleClass="choose-icon bg-gray-300 hover:bg-gray-400 text-gray-900 text-sm border-round-xs p-2"
             chooseLabel="Escolha a imagem do produto"
         ></p-fileUpload>

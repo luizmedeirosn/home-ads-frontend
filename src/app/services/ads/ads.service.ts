@@ -116,13 +116,17 @@ export class AdsService implements OnDestroy {
         const ad: AdDataRequest = {
             title: adRequest.title,
             comment: adRequest.comment,
-            image: adRequest.image,
             averagePrice: adRequest.averagePrice,
             rating: adRequest.rating,
             category: adRequest.category,
-            userId: adRequest.userId,
             publicationDate: adRequest.publicationDate,
+            image: adRequest.image,
+            userId: adRequest.userId,
         }
+
+        const file = ad.image;
+
+        console.log(ad);
 
         const httpsOptions = {
             headers: new HttpHeaders({
@@ -133,8 +137,8 @@ export class AdsService implements OnDestroy {
 
         return new Promise((resolve, reject) => {
             this.httpClient.post<AdDataFullResponse>(
-                `${this.API_URL}/api/ads`,
-                ad,
+                `${this.API_URL}/api/ads/file`,
+                file,
                 httpsOptions
             )
                 .pipe(takeUntil(this.$destroy))

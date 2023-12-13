@@ -39,7 +39,8 @@ export class SigninComponent {
                 .subscribe({
                     next: (loginDTO) => {
                         if (loginDTO) {
-                            this.userService.loginInfo = loginDTO;
+                            this.cookieSerivce.set('USER_ID', loginDTO.USER_ID);
+                            this.cookieSerivce.set('USER_ROLE', loginDTO.USER_ROLE);
                             this.cookieSerivce.set('JWT_TOKEN', loginDTO.JWT_TOKEN);
                             this.signinForm.reset();
                             this.customDialogService.close();

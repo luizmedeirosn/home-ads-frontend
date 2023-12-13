@@ -8,7 +8,7 @@
     <p-card
         styleClass="shadow-3 mt-3 zoomin animation-interation-1 animation-duration-1000 animaion-ease-in-out text-center"
         [style]="{
-            width: '60rem',
+            width: '50rem',
             'border-top': 'solid',
             'border-top-width': '15px',
             'border-top-color': 'var(--blue-1)',
@@ -16,6 +16,31 @@
         }"
         header="{{ selectedAd.title }}"
     >
+        <div
+            *ngIf="role === 'ADMIN'"
+            class="flex justify-content-end align-items-center w-full gap-3"
+        >
+            <button
+                pRipple
+                pButton
+                class="p-button-warning"
+                icon="pi pi-pencil"
+                pTooltip="Editar"
+                tooltipPosition="top"
+                (click)="handleEditAdEvent()"
+            ></button>
+
+            <button
+                pRipple
+                pButton
+                class="p-button-danger mr-3"
+                icon="pi pi-trash"
+                pTooltip="Excluir"
+                tooltipPosition="top"
+                (click)="handleDeleteAdEvent()"
+            ></button>
+        </div>
+
         <div class="flex flex-column align-items-center mt-3 gap-3">
             <div class="flex justify-content-center gap-3">
                 <div class="mb-3">

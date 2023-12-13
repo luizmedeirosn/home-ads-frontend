@@ -17,6 +17,7 @@ import { UserService } from 'src/app/services/user/user.service';
     styleUrls: []
 })
 export class NewAdFormComponent {
+
     private priceValidadorAsync(control: AbstractControl): Observable<ValidationErrors | null> {
         const value: string = String(control.value);
         const validatorPattern: RegExp = /^\d+(\.\d{3})*(,\d{1,2})?$/;
@@ -33,7 +34,7 @@ export class NewAdFormComponent {
         rating: ['', Validators.required],
         category: ['', Validators.required],
     });
-    private image!: File;
+    private image!: any;
 
     public readonly categories = [
         AdCategoryEnum.BED_AND_BATH,
@@ -57,12 +58,12 @@ export class NewAdFormComponent {
             const adResquest: AdDataRequest = {
                 title: this.newAdForm.value.title as string,
                 comment: this.newAdForm.value.comment as string,
-                image: this.image,
                 averagePrice: Number(this.newAdForm.value.averagePrice?.replace(',', '.')),
                 rating: Number(this.newAdForm.value.rating),
                 category: this.newAdForm.value.category as AdCategoryEnum,
-                userId: this.userService.loginInfo.userId,
                 publicationDate: new Date(),
+                image: this.image,
+                userId: Number(this.userService.getUserId()),
             };
 
             this.adsSerivce.save(adResquest).then(
@@ -83,7 +84,7 @@ export class NewAdFormComponent {
         }
     }
 
-    public addAdImage($event: FileUploadEvent): void {
+    handleUploadAdImage($event: FileUploadEvent) {
         throw new Error('Method not implemented.');
     }
 
