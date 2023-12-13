@@ -16,6 +16,7 @@ import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinR
     styleUrls: [],
 })
 export class AdsListComponent implements OnInit {
+
     @Input() public totalAds!: Array<AdDataMinResponse>;
     @Input() public adsPage!: Array<AdDataMinResponse>;
     @Input() public keyWord!: string;
@@ -31,6 +32,7 @@ export class AdsListComponent implements OnInit {
         end: number;
     }> = new EventEmitter();
     @Output() public $addAdEvent: EventEmitter<void> = new EventEmitter();
+    @Output() public $adViewDetailsEvent: EventEmitter<{ id: number }> = new EventEmitter();
 
     public readonly faCategoryIcon: IconDefinition = faTag;
     public readonly faSearchIcon: IconDefinition = faSearch;
@@ -91,7 +93,13 @@ export class AdsListComponent implements OnInit {
         }
     }
 
-    public handleAddAdEvent() : void {
+    public handleAdViewDetailsEvent(id: number) {
+        this.$adViewDetailsEvent.emit({
+            id
+        });
+    }
+
+    public handleAddAdEvent(): void {
         this.$addAdEvent.emit();
     }
 }

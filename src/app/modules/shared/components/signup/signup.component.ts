@@ -38,9 +38,11 @@ export class SignupComponent {
             this.userService.signup(this.signupForm.value as SignupDTO)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe({
-                    next: (tokenDTO) => {
-                        if (tokenDTO) {
-                            this.cookieSerivce.set('JWT_TOKEN', tokenDTO.JWT_TOKEN);
+                    next: (loginDTO) => {
+                        if (loginDTO) {
+                            this.cookieSerivce.set('USER_ID', loginDTO.USER_ID);
+                            this.cookieSerivce.set('USER_ROLE', loginDTO.USER_ROLE);
+                            this.cookieSerivce.set('JWT_TOKEN', loginDTO.JWT_TOKEN);
                             this.signupForm.reset();
                             this.router.navigate(['/ads']);
                             this.customDialogService.close();
@@ -49,12 +51,12 @@ export class SignupComponent {
                     error: (err) => {
                         this.messageService.clear();
                         this.messageService.add({
-                            key: 'center',
+                            key: 'login',
                             severity: 'error',
                             summary: 'Erro',
                             detail: 'Credenciais inválidas!',
                             life: 3000
-                        })
+                        });
                         console.log(err);
                     }
                 });

@@ -14,8 +14,8 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
 import { SigninComponent } from '../signin/signin.component';
-import { UserService } from './../../../../services/user/user.service';
 import { SignupComponent } from '../signup/signup.component';
+import { UserService } from './../../../../services/user/user.service';
 
 @Component({
     selector: 'app-sidebar-navigation',
@@ -87,8 +87,10 @@ export class SidebarNavigationComponent implements OnInit, OnDestroy {
     }
 
     public handleLogoutEvent(): void {
+        this.$isLoggedIn.next(false);
         this.cookieService.delete('JWT_TOKEN');
         this.router.navigate(['/home']);
+        this.ngOnDestroy();
     }
 
     public ngOnDestroy(): void {

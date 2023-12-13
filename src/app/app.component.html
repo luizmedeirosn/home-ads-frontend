@@ -10,12 +10,22 @@
 ></p-toast>
 
 <p-toast
-    [key]="'center'"
+    key="ads"
     position="bottom-right"
     [showTransformOptions]="'translateX(100%)'"
     [showTransformOptions]="'translateY(-100%)'"
     [showTransitionOptions]="'1000ms'"
     [hideTransitionOptions]="'1000ms'"
-    styleClass="opacity-100 w-4 mt-7"
+    styleClass="opacity-100 w-3 mt-7"
+    [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
+></p-toast>
+
+<p-toast
+    key="login"
+    position="bottom-center"
+    [showTransformOptions]="'translateY(100%)'"
+    [showTransitionOptions]="'1000ms'"
+    [hideTransitionOptions]="'1000ms'"
+    styleClass="opacity-100 w-3"
     [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"
 ></p-toast>

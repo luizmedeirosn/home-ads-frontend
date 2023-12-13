@@ -37,23 +37,25 @@ export class SigninComponent {
             this.userService.signin(this.signinForm.value as SigninDTO)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe({
-                    next: (tokenDTO) => {
-                        if (tokenDTO) {
-                            this.cookieSerivce.set('JWT_TOKEN', tokenDTO.JWT_TOKEN);
+                    next: (loginDTO) => {
+                        if (loginDTO) {
+                            this.cookieSerivce.set('USER_ID', loginDTO.USER_ID);
+                            this.cookieSerivce.set('USER_ROLE', loginDTO.USER_ROLE);
+                            this.cookieSerivce.set('JWT_TOKEN', loginDTO.JWT_TOKEN);
                             this.signinForm.reset();
-                            this.router.navigate(['/ads']);
                             this.customDialogService.close();
+                            this.router.navigate(['/ads']);
                         }
                     },
                     error: (err) => {
                         this.messageService.clear();
                         this.messageService.add({
-                            key: 'center',
+                            key: 'login',
                             severity: 'error',
                             summary: 'Erro',
                             detail: 'Informe um login válido ou cadastre-se!',
                             life: 3000
-                        })
+                        });
                         console.log(err);
                     }
                 });

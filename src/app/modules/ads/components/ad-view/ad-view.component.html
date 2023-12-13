@@ -1,0 +1,109 @@
+<app-sidebar-navigation></app-sidebar-navigation>
+
+<div
+    *ngIf="$loaded | async; else loading"
+    class="flex justify-content-center align-items-center"
+    style="background-color: whitesmoke"
+>
+    <p-card
+        styleClass="shadow-3 mt-3 zoomin animation-interation-1 animation-duration-1000 animaion-ease-in-out text-center"
+        [style]="{
+            width: '50rem',
+            'border-top': 'solid',
+            'border-top-width': '15px',
+            'border-top-color': 'var(--blue-1)',
+            'border-top-radius': '10px'
+        }"
+        header="{{ selectedAd.title }}"
+    >
+        <div
+            *ngIf="role === 'ADMIN'"
+            class="flex justify-content-end align-items-center w-full gap-3"
+        >
+            <button
+                pRipple
+                pButton
+                class="p-button-warning"
+                icon="pi pi-pencil"
+                pTooltip="Editar"
+                tooltipPosition="top"
+                (click)="handleEditAdEvent()"
+            ></button>
+
+            <button
+                pRipple
+                pButton
+                class="p-button-danger mr-3"
+                icon="pi pi-trash"
+                pTooltip="Excluir"
+                tooltipPosition="top"
+                (click)="handleDeleteAdEvent()"
+            ></button>
+        </div>
+
+        <div class="flex flex-column align-items-center mt-3 gap-3">
+            <div class="flex justify-content-center gap-3">
+                <div class="mb-3">
+                    <img
+                        src="{{ selectedAd.imageLink }}"
+                        [alt]="selectedAd.title"
+                        class="image-card"
+                    />
+                </div>
+                <div
+                    class="flex flex-column align-items-center justify-content-center"
+                >
+                    <h3 class="mt-0 mb-3 text-green-700">
+                        Preço médio:
+                        {{ selectedAd.averagePrice | currency : "BRL" }}
+                    </h3>
+                    <div class="flex flex-column align-items-center">
+                        <span class="text-lg font-bold"
+                            >Avaliação do consumidor:</span
+                        >
+                        <p-rating
+                            [(ngModel)]="
+                                selectedAd.rating || ratingDefaultValue
+                            "
+                            [readonly]="true"
+                            [cancel]="false"
+                            [stars]="5"
+                        ></p-rating>
+                    </div>
+                    <div class="flex flex-column align-items-center">
+                        <span class="text-lg font-bold"
+                            >Categoria do produto:</span
+                        >
+                        <div
+                            class="flex justify-content-center align-items-center text-lg font-medium gap-2"
+                        >
+                            <fa-icon
+                                [icon]="faCategoryIcon"
+                                size="lg"
+                                [styles]="{ color: 'var(--gray-900)' }"
+                            ></fa-icon>
+                            <span>{{ selectedAd.category }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p-fieldset legend="Comentário sobre o produto">
+                <p class="m-0 text-justify">
+                    {{ selectedAd.comment }}
+                </p>
+            </p-fieldset>
+
+            <div class="flex justify-content-end w-full">
+                <span class="text-blue-700"
+                    >Cadastrado por {{ selectedAd.userEmail }} em
+                    {{ selectedAd.publicationDate | date : "dd/MM/yyyy" }}</span
+                >
+            </div>
+        </div>
+    </p-card>
+</div>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

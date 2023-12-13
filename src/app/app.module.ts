@@ -11,6 +11,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogService } from 'primeng/dynamicdialog';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { DialogService } from 'primeng/dynamicdialog';
         HttpClientModule,
 
         ToastModule,
+        FileUploadModule
     ],
     providers: [MessageService, CookieService, DialogService],
     bootstrap: [AppComponent]

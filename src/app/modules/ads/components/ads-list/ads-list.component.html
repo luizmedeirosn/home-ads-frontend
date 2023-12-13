@@ -83,6 +83,7 @@
                             type="button"
                             label="Mais informações"
                             styleClass="p-button p-button-rounded mr-2 gap-2 align-items-center bg-indigo-800 hover:bg-indigo-900"
+                            (onClick)="handleAdViewDetailsEvent(ad.id)"
                         >
                             <fa-icon [icon]="faSearchIcon" size="lg"></fa-icon>
                         </p-button>

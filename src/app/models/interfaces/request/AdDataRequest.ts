@@ -4,11 +4,11 @@ export interface AdDataRequest {
 
     title: string;
     comment: string;
-    image: File;
+    image: any;
     averagePrice: number;
     rating: number;
     category: AdCategoryEnum;
-    userName: string;
     publicationDate: Date;
+    userId: number;
 
 }

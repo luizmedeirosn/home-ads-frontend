@@ -9,6 +9,7 @@ import { Observable, of } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { AdDataRequest } from 'src/app/models/interfaces/request/AdDataRequest';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
     selector: 'app-new-ad-form',
@@ -16,6 +17,7 @@ import { CustomDialogService } from 'src/app/modules/shared/services/dialog/cust
     styleUrls: []
 })
 export class NewAdFormComponent {
+
     private priceValidadorAsync(control: AbstractControl): Observable<ValidationErrors | null> {
         const value: string = String(control.value);
         const validatorPattern: RegExp = /^\d+(\.\d{3})*(,\d{1,2})?$/;
@@ -32,7 +34,7 @@ export class NewAdFormComponent {
         rating: ['', Validators.required],
         category: ['', Validators.required],
     });
-    private image!: File;
+    private image!: any;
 
     public readonly categories = [
         AdCategoryEnum.BED_AND_BATH,
@@ -47,6 +49,7 @@ export class NewAdFormComponent {
         private formBuilder: FormBuilder,
         private dynamicDialogConfig: DynamicDialogConfig,
         private customDialogService: CustomDialogService,
+        private userService: UserService,
     ) { }
 
 
@@ -55,12 +58,12 @@ export class NewAdFormComponent {
             const adResquest: AdDataRequest = {
                 title: this.newAdForm.value.title as string,
                 comment: this.newAdForm.value.comment as string,
-                image: this.image,
                 averagePrice: Number(this.newAdForm.value.averagePrice?.replace(',', '.')),
                 rating: Number(this.newAdForm.value.rating),
                 category: this.newAdForm.value.category as AdCategoryEnum,
-                userName: "Admin",
                 publicationDate: new Date(),
+                image: this.image,
+                userId: Number(this.userService.getUserId()),
             };
 
             this.adsSerivce.save(adResquest).then(
@@ -81,7 +84,7 @@ export class NewAdFormComponent {
         }
     }
 
-    public addAdImage($event: FileUploadEvent): void {
+    handleUploadAdImage($event: FileUploadEvent) {
         throw new Error('Method not implemented.');
     }
 

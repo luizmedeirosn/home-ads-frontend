@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
@@ -14,6 +15,7 @@ import { NewAdFormComponent } from '../../components/new-ad-form/new-ad-form.com
     styleUrls: []
 })
 export class AdsHomeComponent implements OnInit, OnDestroy {
+
     private $destroy: Subject<void> = new Subject();
 
     public $loaded: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -27,6 +29,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
         private adsService: AdsService,
         private messageService: MessageService,
         private customDialogService: CustomDialogService,
+        private router: Router,
 
     ) { }
 
@@ -120,6 +123,31 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
                     this.setAllAdsWithApi();
                 }
             });
+    }
+
+    public handleAdViewDetailsAction($event: { id: number; }) {
+        if ($event) {
+            this.adsService.findById($event.id)
+                .pipe(takeUntil(this.$destroy))
+                .subscribe({
+                    next: (ad) => {
+                        this.adsService.selectedAd = ad;
+                        this.messageService.clear();
+                        this.router.navigate(['ads/view']);
+                    },
+                    error: (err) => {
+                        this.messageService.clear();
+                        this.messageService.add({
+                            key: 'login',
+                            severity: 'warn',
+                            summary: 'Aviso',
+                            detail: 'Sua sesção expirou, realize um novo login!',
+                            life: 3000
+                        });
+                        console.log(err);
+                    }
+                });
+        }
     }
 
     public ngOnDestroy(): void {
