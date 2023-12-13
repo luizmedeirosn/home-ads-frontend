@@ -8,7 +8,7 @@ export interface AdDataRequest {
     averagePrice: number;
     rating: number;
     category: AdCategoryEnum;
-    userName: string;
     publicationDate: Date;
+    userId: number;
 
 }

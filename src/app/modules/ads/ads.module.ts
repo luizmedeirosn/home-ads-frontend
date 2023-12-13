@@ -19,6 +19,8 @@ import { ADS_ROUTES } from './ads.routing';
 import { AdsListComponent } from './components/ads-list/ads-list.component';
 import { NewAdFormComponent } from './components/new-ad-form/new-ad-form.component';
 import { AdsHomeComponent } from './page/ads-home/ads-home.component';
+import { AdViewComponent } from './components/ad-view/ad-view.component';
+import { FieldsetModule } from 'primeng/fieldset';
 
 
 
@@ -26,7 +28,8 @@ import { AdsHomeComponent } from './page/ads-home/ads-home.component';
     declarations: [
         AdsHomeComponent,
         AdsListComponent,
-        NewAdFormComponent
+        NewAdFormComponent,
+        AdViewComponent
     ],
     imports: [
         CommonModule,
@@ -48,6 +51,7 @@ import { AdsHomeComponent } from './page/ads-home/ads-home.component';
         TooltipModule,
         DynamicDialogModule,
         FileUploadModule,
+        FieldsetModule,
     ],
     providers: [
         DialogService,

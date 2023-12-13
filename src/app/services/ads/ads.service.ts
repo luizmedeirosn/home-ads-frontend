@@ -7,7 +7,7 @@ import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinR
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -17,17 +17,10 @@ export class AdsService implements OnDestroy {
     private readonly $destroy: Subject<void> = new Subject();
 
     private API_URL: string = environment.API_URL;
-    private JWT_TOKEN: string = this.cookieService.get('JWT_TOKEN');
-    private httpsOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.JWT_TOKEN}`
-        })
-    }
-
     public ads!: Array<AdDataMinResponse>;
-
     public filterCategoryActivated!: { activated: boolean; category: AdCategoryEnum | undefined };
+
+    public selectedAd!: AdDataFullResponse;
 
     public constructor(
         private primeFilterService: FilterService,
@@ -36,10 +29,16 @@ export class AdsService implements OnDestroy {
     ) { }
 
     public findAllAds(): Promise<Array<AdDataMinResponse>> {
+        const httpsOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.cookieService.get('JWT_TOKEN')}`
+            })
+        };
         return new Promise((resolve, reject) => {
             this.httpClient.get<Array<AdDataMinResponse>>(
                 `${this.API_URL}/api/ads`,
-                this.httpsOptions
+                httpsOptions
             )
                 .pipe(takeUntil(this.$destroy))
                 .subscribe({
@@ -100,19 +99,55 @@ export class AdsService implements OnDestroy {
         }
     }
 
+    public findById(id: number): Observable<AdDataFullResponse> {
+        const httpsOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.cookieService.get('JWT_TOKEN')}`
+            })
+        };
+        return this.httpClient.get<AdDataFullResponse>(
+            `${this.API_URL}/api/ads/${id}`,
+            httpsOptions
+        );
+    }
+
     public save(adRequest: AdDataRequest): Promise<AdDataFullResponse> {
-        const ad: AdDataFullResponse = {
+        const ad: AdDataRequest = {
             title: adRequest.title,
             comment: adRequest.comment,
             image: adRequest.image,
             averagePrice: adRequest.averagePrice,
             rating: adRequest.rating,
             category: adRequest.category,
-            userName: adRequest.userName,
+            userId: adRequest.userId,
             publicationDate: adRequest.publicationDate,
         }
 
-        return Promise.resolve(ad);
+        const httpsOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.cookieService.get('JWT_TOKEN')}`
+            })
+        };
+
+        return new Promise((resolve, reject) => {
+            this.httpClient.post<AdDataFullResponse>(
+                `${this.API_URL}/api/ads`,
+                ad,
+                httpsOptions
+            )
+                .pipe(takeUntil(this.$destroy))
+                .subscribe({
+                    next: (ad) => {
+                        resolve(ad);
+                    },
+                    error: (err) => {
+                        console.log(err);
+                        reject(err);
+                    }
+                });
+        });
     }
 
     public ngOnDestroy(): void {

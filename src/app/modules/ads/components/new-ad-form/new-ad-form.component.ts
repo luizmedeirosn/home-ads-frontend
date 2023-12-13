@@ -9,6 +9,7 @@ import { Observable, of } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { AdDataRequest } from 'src/app/models/interfaces/request/AdDataRequest';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
     selector: 'app-new-ad-form',
@@ -47,6 +48,7 @@ export class NewAdFormComponent {
         private formBuilder: FormBuilder,
         private dynamicDialogConfig: DynamicDialogConfig,
         private customDialogService: CustomDialogService,
+        private userService: UserService,
     ) { }
 
 
@@ -59,7 +61,7 @@ export class NewAdFormComponent {
                 averagePrice: Number(this.newAdForm.value.averagePrice?.replace(',', '.')),
                 rating: Number(this.newAdForm.value.rating),
                 category: this.newAdForm.value.category as AdCategoryEnum,
-                userName: "Admin",
+                userId: this.userService.loginInfo.userId,
                 publicationDate: new Date(),
             };
 

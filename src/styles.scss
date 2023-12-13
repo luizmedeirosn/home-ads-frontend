@@ -13,8 +13,8 @@ body {
 }
 
 img, svg {
-    filter: brightness(1.0) contrast(1.0) saturate(1.2) grayscale(5%) !important;
-    image-rendering: -webkit-optimize-contrast !important;
+    filter: brightness(1.0) contrast(1.0) saturate(1.2) grayscale(5%);
+    image-rendering: -webkit-optimize-contrast;
 }
 
 svg {
@@ -22,7 +22,7 @@ svg {
 }
 
 text, span {
-    text-rendering: optimizeLegibility !important;
+    text-rendering: optimizeLegibility;
 }
 
 .p-button:focus {
@@ -71,9 +71,9 @@ text, span {
 }
 
 .image-card {
-    width: 200px !important;
-    height: 200px !important;
-    border-radius: 10px !important;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
 }
 
 .p-rating-icon {
@@ -113,7 +113,7 @@ p {
 
 .contact-form-icon {
     svg {
-        color: var(--blue-1) !important;
+        color: var(--blue-1);
     }
     color: var(--blue-1);
 }
@@ -125,15 +125,15 @@ p {
 .paginator, .dropdown {
     background-color: whitesmoke;
     button {
-        color: var(--black-1) !important;
+        color: var(--black-1);
     }
     svg {
-        color: var(--black-1) !important;
+        color: var(--black-1);
     }
 }
 
 .p-dropdown-label, .p-placeholder {
-    color: black !important;
+    color: black;
 }
 
 .p-dropdown-panel {
@@ -142,21 +142,43 @@ p {
 
 .p-dialog-header {
     color: white;
-    background-color: var(--blue-1) !important;
-    padding: 1rem !important;
+    background-color: var(--blue-1);
+    padding: 1rem;
 }
 
 .p-dialog-content {
-    background-color: whitesmoke !important;
+    background-color: whitesmoke;
 }
 
 .choose-icon {
     color: var(--black-1);
     svg {
-        color: var(--black-1) !important;
+        color: var(--black-1);
     }
 }
 
 .p-dialog-content:last-of-type {
-    border-radius: 10px !important;
+    border-radius: 10px;
+}
+
+.p-fieldset {
+    background-color: whitesmoke;
+}
+
+.p-fieldset-legend {
+    background-color: whitesmoke;
+    font: bold;
+    font-size: large;
+    span {
+        color: var(--black-1);
+    }
+}
+
+.p-fieldset-content {
+    background-color: whitesmoke;
+    font: medium;
+    p {
+        color: var(--black-1);
+    }
+
 }
