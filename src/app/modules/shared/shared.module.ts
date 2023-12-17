@@ -15,6 +15,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { SignupComponent } from './components/signup/signup.component';
+import { ShortenPipe } from './pipes/shorten.pipe';
 @NgModule({
     declarations: [
         SidebarNavigationComponent,
@@ -22,6 +23,7 @@ import { SignupComponent } from './components/signup/signup.component';
         LoadingComponent,
         SigninComponent,
         SignupComponent,
+        ShortenPipe,
     ],
     imports: [
         CommonModule,
@@ -38,7 +40,7 @@ import { SignupComponent } from './components/signup/signup.component';
         ButtonModule,
         InputTextModule,
     ],
-    exports: [SidebarNavigationComponent, FormControlAlertComponent, LoadingComponent],
+    exports: [SidebarNavigationComponent, FormControlAlertComponent, LoadingComponent, ShortenPipe],
     providers: [DialogService]
 })
 export class SharedModule { }
