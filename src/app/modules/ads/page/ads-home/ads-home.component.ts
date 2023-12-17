@@ -4,7 +4,7 @@ import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
-import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
+import { AdDataMinDTO } from 'src/app/models/interfaces/response/AdDataMinDTO';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
 import { AdsService } from 'src/app/services/ads/ads.service';
 import { NewAdFormComponent } from '../../components/new-ad-form/new-ad-form.component';
@@ -20,8 +20,8 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
 
     public $loaded: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    public totalAds!: Array<AdDataMinResponse>;
-    public adsPage!: Array<AdDataMinResponse>;
+    public totalAds!: Array<AdDataMinDTO>;
+    public adsPage!: Array<AdDataMinDTO>;
 
     public dynamicDialogRef!: DynamicDialogRef;
 

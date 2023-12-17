@@ -1,6 +1,6 @@
 import { AdCategoryEnum } from "../../enums/AdCategoriesEnum";
 
-export interface AdDataFullResponse {
+export interface AdDataFullDTO {
 
     id: number;
     title: string;

@@ -4,10 +4,9 @@ import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AdsService } from 'src/app/services/ads/ads.service';
 
-import { FileUploadEvent } from 'primeng/fileupload';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
-import { AdDataRequest } from 'src/app/models/interfaces/request/AdDataRequest';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -29,12 +28,12 @@ export class NewAdFormComponent {
 
     public newAdForm = this.formBuilder.group({
         title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-        comment: ['', [Validators.required, Validators.minLength(40), Validators.maxLength(1000)]],
+        comment: ['', [Validators.required, Validators.minLength(50), Validators.maxLength(2000)]],
         averagePrice: ['', Validators.required, this.priceValidadorAsync],
         rating: ['', Validators.required],
         category: ['', Validators.required],
     });
-    private image!: any;
+    private image!: File;
 
     public readonly categories = [
         AdCategoryEnum.BED_AND_BATH,
@@ -50,18 +49,36 @@ export class NewAdFormComponent {
         private dynamicDialogConfig: DynamicDialogConfig,
         private customDialogService: CustomDialogService,
         private userService: UserService,
+        private httpClient: HttpClient
     ) { }
 
 
     public handleSubmitAddAd(): void {
         if (this.newAdForm?.valid && this.newAdForm?.value) {
-            const adResquest: AdDataRequest = {
+            const selectedCategory = this.newAdForm.value.category as string;
+            let categoryCode: number = 0;
+            switch (selectedCategory) {
+                case "Cama, mesa e banho":
+                    categoryCode = 1;
+                    break;
+                case "Eletrodomésticos":
+                    categoryCode = 2;
+                    break;
+                case "Móveis":
+                    categoryCode = 3;
+                    break;
+                case "Ferramentas":
+                    categoryCode = 4;
+                    break;
+            }
+
+            const adResquest = {
                 title: this.newAdForm.value.title as string,
                 comment: this.newAdForm.value.comment as string,
                 averagePrice: Number(this.newAdForm.value.averagePrice?.replace(',', '.')),
                 rating: Number(this.newAdForm.value.rating),
-                category: this.newAdForm.value.category as AdCategoryEnum,
-                publicationDate: new Date(),
+                categoryCode,
+                publicationDate: new Date().toISOString(),
                 image: this.image,
                 userId: Number(this.userService.getUserId()),
             };
@@ -84,8 +101,10 @@ export class NewAdFormComponent {
         }
     }
 
-    handleUploadAdImage($event: FileUploadEvent) {
-        throw new Error('Method not implemented.');
+    public handleUploadAdImage($event: any): void {
+        if ($event) {
+            this.image = $event.target.files[0];
+        }
     }
 
 }

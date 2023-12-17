@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IconDefinition, faTag } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from 'primeng/api';
 import { BehaviorSubject } from 'rxjs';
-import { AdDataFullResponse } from 'src/app/models/interfaces/response/AdDataFullResponse';
+import { AdDataFullDTO } from 'src/app/models/interfaces/response/AdDataFullDTO';
 import { AdsService } from 'src/app/services/ads/ads.service';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class AdViewComponent {
 
     public $loaded: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    public selectedAd!: AdDataFullResponse;
+    public selectedAd!: AdDataFullDTO;
     public ratingDefaultValue: number = 0;
     public readonly faCategoryIcon: IconDefinition = faTag;
     public role!: string;

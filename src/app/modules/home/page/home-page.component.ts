@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
+import { AdDataMinDTO } from 'src/app/models/interfaces/response/AdDataMinDTO';
 import { AdsService } from 'src/app/services/ads/ads.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { AdsService } from 'src/app/services/ads/ads.service';
 export class HomePageComponent implements OnInit {
     public $loaded: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    public ads!: Array<AdDataMinResponse>;
+    public ads!: Array<AdDataMinDTO>;
 
     constructor(
         private adsService: AdsService

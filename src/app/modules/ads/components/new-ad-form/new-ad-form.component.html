@@ -2,6 +2,7 @@
     [formGroup]="newAdForm"
     (ngSubmit)="handleSubmitAddAd()"
     class="flex flex-column align-items-center m-3 gap-3"
+    enctype="multipart/form-data"
 >
     <div
         class="card flex flex-column md:flex-column align-content-center w-full m-3 gap-3"
@@ -28,8 +29,8 @@
         <app-form-control-alert
             [form]="newAdForm"
             [controlName]="'comment'"
-            [minNumberCharacters]="40"
-            [maxNumberCharacters]="1000"
+            [minNumberCharacters]="50"
+            [maxNumberCharacters]="2000"
         ></app-form-control-alert>
 
         <input
@@ -61,16 +62,7 @@
             ></p-rating>
         </div>
 
-        <p-fileUpload
-            mode="basic"
-            name="image"
-            accept="image/*"
-            url="https://www.primefaces.org/cdn/api/upload.php"
-            [maxFileSize]="1000000"
-            (onUpload)="handleUploadAdImage($event)"
-            styleClass="choose-icon bg-gray-300 hover:bg-gray-400 text-gray-900 text-sm border-round-xs p-2"
-            chooseLabel="Escolha a imagem do produto"
-        ></p-fileUpload>
+        <input type="file" (change)="handleUploadAdImage($event)" />
 
         <div
             class="flex flex-row justify-content-center align-content-center align-items-center m-1"

@@ -1,6 +1,6 @@
 import { AdCategoryEnum } from "../../enums/AdCategoriesEnum";
 
-export interface AdDataMinResponse {
+export interface AdDataMinDTO {
 
     id: number;
     title: string;

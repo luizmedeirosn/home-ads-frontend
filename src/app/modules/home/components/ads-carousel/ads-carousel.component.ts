@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { AdDataMinResponse } from 'src/app/models/interfaces/response/AdDataMinResponse';
+import { AdDataMinDTO } from 'src/app/models/interfaces/response/AdDataMinDTO';
 import { IconDefinition, faTag, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-ads-carousel',
-  templateUrl: './ads-carousel.component.html',
-  styleUrls: [],
+    selector: 'app-ads-carousel',
+    templateUrl: './ads-carousel.component.html',
+    styleUrls: [],
 })
 export class AdsCarouselComponent {
 
-    @Input() ads!: Array<AdDataMinResponse>;
+    @Input() ads!: Array<AdDataMinDTO>;
 
     public ratingDefaultValue: number = 0
 
