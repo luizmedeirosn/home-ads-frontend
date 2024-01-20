@@ -5,10 +5,11 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AdsService } from 'src/app/services/ads/ads.service';
 
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { IconDefinition, faUpload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-new-ad-form',
@@ -16,6 +17,9 @@ import { UserService } from 'src/app/services/user/user.service';
     styleUrls: []
 })
 export class NewAdFormComponent {
+
+    public readonly faUploadIcon: IconDefinition = faUpload;
+    public $viewSelectedImage: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     private priceValidadorAsync(control: AbstractControl): Observable<ValidationErrors | null> {
         const value: string = String(control.value);
@@ -33,7 +37,7 @@ export class NewAdFormComponent {
         rating: ['', Validators.required],
         category: ['', Validators.required],
     });
-    private image!: File;
+    public image!: File;
 
     public readonly categories = [
         AdCategoryEnum.BED_AND_BATH,
@@ -104,6 +108,7 @@ export class NewAdFormComponent {
     public handleUploadAdImage($event: any): void {
         if ($event) {
             this.image = $event.target.files[0];
+            this.$viewSelectedImage.next(true);
         }
     }
 

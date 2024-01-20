@@ -21,6 +21,7 @@ import { AdViewComponent } from './components/ad-view/ad-view.component';
 import { AdsListComponent } from './components/ads-list/ads-list.component';
 import { NewAdFormComponent } from './components/new-ad-form/new-ad-form.component';
 import { AdsHomeComponent } from './page/ads-home/ads-home.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 
 
@@ -45,6 +46,7 @@ import { AdsHomeComponent } from './page/ads-home/ads-home.component';
         RatingModule,
         ButtonModule,
         InputTextModule,
+        InputTextareaModule,
         InputMaskModule,
         PaginatorModule,
         DropdownModule,

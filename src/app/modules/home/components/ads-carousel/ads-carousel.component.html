@@ -14,7 +14,7 @@
             [autoplayInterval]="6000"
         >
             <ng-template let-ad pTemplate="item">
-                <div class="shadow-3 m-3 py-3 text-center border-round-lg">
+                <div class="item shadow-3 m-3 py-3 text-center border-round-lg">
                     <div class="mb-3">
                         <img
                             src="{{ ad.imageLink }}"
@@ -23,7 +23,7 @@
                         />
                     </div>
                     <div>
-                        <h3 class="mb-1">{{ ad.title }}</h3>
+                        <h3 class="mb-1">{{ ad.title | shorten : 26 }}</h3>
                         <h3 class="mt-0 mb-3 text-green-700">
                             Preço médio:
                             {{ ad.averagePrice | currency : "BRL" }}

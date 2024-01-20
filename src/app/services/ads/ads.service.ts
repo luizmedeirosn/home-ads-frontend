@@ -26,32 +26,17 @@ export class AdsService implements OnDestroy {
         private primeFilterService: FilterService,
         private cookieService: CookieService,
         private httpClient: HttpClient,
-    ) { }
+    ) {
+        this.httpClient.get<Array<AdDataMinDTO>>(
+            `${this.API_URL}/api/ads`,
+        ).pipe(takeUntil(this.$destroy))
+            .subscribe((ads) => this.ads = ads);
+    }
 
-    public findAllAds(): Promise<Array<AdDataMinDTO>> {
-        const httpsOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.cookieService.get('JWT_TOKEN')}`
-            })
-        };
-        return new Promise((resolve, reject) => {
-            this.httpClient.get<Array<AdDataMinDTO>>(
-                `${this.API_URL}/api/ads`,
-                httpsOptions
-            )
-                .pipe(takeUntil(this.$destroy))
-                .subscribe({
-                    next: (ads) => {
-                        this.ads = ads;
-                        resolve(this.ads);
-                    },
-                    error: (err) => {
-                        console.log(err);
-                        reject(err);
-                    }
-                });
-        });
+    public findAllAds(): Observable<Array<AdDataMinDTO>> {
+        return this.httpClient.get<Array<AdDataMinDTO>>(
+            `${this.API_URL}/api/ads`,
+        );
     }
 
     public findAdsPerPage(begin: number, end: number): Promise<Array<AdDataMinDTO>> {
@@ -153,4 +138,5 @@ export class AdsService implements OnDestroy {
         this.$destroy.next();
         this.$destroy.complete();
     }
+
 }

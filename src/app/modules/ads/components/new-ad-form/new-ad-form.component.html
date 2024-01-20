@@ -1,79 +1,94 @@
 <form
     [formGroup]="newAdForm"
     (ngSubmit)="handleSubmitAddAd()"
-    class="flex flex-column align-items-center m-3 gap-3"
+    class="flex flex-column align-content-center justify-content-around m-3 gap-2"
     enctype="multipart/form-data"
 >
-    <div
-        class="card flex flex-column md:flex-column align-content-center w-full m-3 gap-3"
+    <input pInputText placeholder="Título do anúncio" formControlName="title" />
+    <app-form-control-alert
+        [form]="newAdForm"
+        [controlName]="'title'"
+        [minNumberCharacters]="3"
+        [maxNumberCharacters]="50"
+    ></app-form-control-alert>
+
+    <textarea
+        pInputTextarea
+        placeholder="Deixe o seu comentário"
+        formControlName="comment"
+    ></textarea>
+    <app-form-control-alert
+        [form]="newAdForm"
+        [controlName]="'comment'"
+        [minNumberCharacters]="50"
+        [maxNumberCharacters]="2000"
+    ></app-form-control-alert>
+
+    <p-inputNumber
+        formControlName="averagePrice"
+        inputId="minmaxfraction"
+        mode="decimal"
+        [minFractionDigits]="2"
+        [maxFractionDigits]="5"
     >
-        <input
-            pInputText
-            placeholder="Título do anúncio"
-            formControlName="title"
-            style="background-color: whitesmoke"
-        />
-        <app-form-control-alert
-            [form]="newAdForm"
-            [controlName]="'title'"
-            [minNumberCharacters]="3"
-            [maxNumberCharacters]="50"
-        ></app-form-control-alert>
+    </p-inputNumber>
+    <app-form-control-alert
+        [form]="newAdForm"
+        [controlName]="'averagePrice'"
+        [minNumberCharacters]="1"
+        [maxNumberCharacters]="15"
+    ></app-form-control-alert>
 
-        <input
-            pInputText
-            placeholder="Deixe o seu comentário"
-            formControlName="comment"
-            style="background-color: whitesmoke"
-        />
-        <app-form-control-alert
-            [form]="newAdForm"
-            [controlName]="'comment'"
-            [minNumberCharacters]="50"
-            [maxNumberCharacters]="2000"
-        ></app-form-control-alert>
+    <p-dropdown
+        styleClass="dropdown w-full"
+        [options]="categories"
+        placeholder="Select a category"
+        formControlName="category"
+    ></p-dropdown>
 
-        <input
-            pInputText
-            placeholder="Informe o valor do produto adquirido (ex: 3999,99)"
-            formControlName="averagePrice"
-            style="background-color: whitesmoke"
-        />
-        <app-form-control-alert
-            [form]="newAdForm"
-            [controlName]="'averagePrice'"
-            [minNumberCharacters]="1"
-            [maxNumberCharacters]="15"
-        ></app-form-control-alert>
+    <div class="flex justify-content-start align-content-center gap-2">
+        <span class="text-lg font-medium">Atribua uma nota:</span>
+        <p-rating
+            formControlName="rating"
+            [stars]="5"
+            [cancel]="false"
+        ></p-rating>
+    </div>
 
-        <p-dropdown
-            styleClass="dropdown w-full"
-            [options]="categories"
-            placeholder="Select a category"
-            formControlName="category"
-        ></p-dropdown>
-
-        <div class="flex justify-content-start align-content-center gap-3">
-            <span class="text-lg font-medium">Atribua uma nota:</span>
-            <p-rating
-                formControlName="rating"
-                [stars]="5"
-                [cancel]="false"
-            ></p-rating>
-        </div>
-
-        <input type="file" (change)="handleUploadAdImage($event)" />
-
-        <div
-            class="flex flex-row justify-content-center align-content-center align-items-center m-1"
+    <div class="flex flex-column justify-content-start align-items-start gap-3">
+        <label
+            pRipple
+            pButton
+            for="input-file"
+            class="bg-gray-600 hover:bg-gray-800 w-4 p-1 shadow-1 flex justify-content-center align-items-center gap-2"
         >
-            <p-button
-                [disabled]="!newAdForm.valid"
-                type="submit"
-                label="Concluir"
-                styleClass="bg-green-600"
-            >
-            </p-button>
-        </div>
+            <fa-icon [icon]="faUploadIcon"></fa-icon>
+            Escolha uma imagem</label
+        >
+
+        <span *ngIf="$viewSelectedImage | async">{{
+            image.name | shorten : 40
+        }}</span>
+
+        <input
+            type="file"
+            name="input-file"
+            id="input-file"
+            style="display: none"
+            (change)="handleUploadAdImage($event)"
+            accept=".jpg, .jpeg, .png .webp"
+        />
+    </div>
+
+    <div
+        class="flex flex justify-content-center align-content-center align-items-center mt-4"
+    >
+        <p-button
+            [disabled]="!newAdForm.valid || image === undefined"
+            type="submit"
+            label="Concluir"
+            styleClass="bg-green-600"
+        >
+        </p-button>
     </div>
 </form>

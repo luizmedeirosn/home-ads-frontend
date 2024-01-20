@@ -44,27 +44,26 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
                 detail: 'Anúncios carregados com sucesso!',
                 life: 2500,
             });
-        }, 1500)
+        }, 1500);
 
-        this.adsService.findAllAds().then(
-            (ads) => {
-                if (ads.length > 0) {
-                    this.totalAds = ads;
-                    this.adsPage = ads.slice(0, 8);
-                }
-            }
-        );
+        this.setAllAdsWithApi(0, 8);
     }
 
-    private setAllAdsWithApi(): void {
-        this.adsService.findAllAds().then(
-            (ads) => {
-                if (ads.length > 0) {
-                    this.totalAds = ads;
-                    this.adsPage = ads.slice(this.totalAds.length - 8, this.totalAds.length);
+    private setAllAdsWithApi(pageBeginElement: number, pageLastElement: number): void {
+        this.adsService
+            .findAllAds()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe({
+                next: (ads: AdDataMinDTO[]) => {
+                    if (ads.length > 0) {
+                        this.totalAds = ads;
+                        this.adsPage = ads.slice(pageBeginElement, pageLastElement);
+                    }
+                },
+                error: (err) => {
+                    console.log(err);
                 }
-            }
-        );
+            });
     }
 
     public handleOnInputChangeAction($event: { keyWord: string }): void {
@@ -87,12 +86,24 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
                 }
             );
         } else {
-            this.adsService.findAllAds().then(
-                (ads) => {
-                    this.totalAds = ads;
-                    this.adsPage = ads.slice(0, 8);
-                }
-            );
+            this.adsService
+                .findAllAds()
+                .pipe(takeUntil(this.$destroy))
+                .subscribe({
+                    next: (ads: AdDataMinDTO[]) => {
+                        if (ads.length > 0) {
+                            this.totalAds = ads;
+                            this.adsPage = ads.slice(0, 8);
+                            this.adsService.filterCategoryActivated = {
+                                activated: false,
+                                category: undefined
+                            };
+                        }
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
         }
     }
 
@@ -120,7 +131,11 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.$destroy))
             .subscribe({
                 next: () => {
-                    this.setAllAdsWithApi();
+                    this.$loaded.next(false);
+                    setTimeout(() => {
+                        this.setAllAdsWithApi(this.totalAds.length - (this.totalAds.length % 8), this.totalAds.length);
+                        this.$loaded.next(true);
+                    }, 1000);
                 }
             });
     }

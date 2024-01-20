@@ -11,7 +11,6 @@
                     <input
                         pInputText
                         class="w-20rem"
-                        style="background-color: whitesmoke"
                         placeholder="Pesquise os aúncios por título"
                         [(ngModel)]="keyWord"
                         (ngModelChange)="$onInputChangeEvent.emit({ keyWord })"
@@ -55,7 +54,7 @@
                     />
                 </div>
                 <div>
-                    <h3 class="mb-1">{{ ad.title }}</h3>
+                    <h3 class="mb-1">{{ ad.title | shorten : 28 }}</h3>
                     <h3 class="mt-0 mb-3 text-green-700">
                         Preço médio: {{ ad.averagePrice | currency : "BRL" }}
                     </h3>
