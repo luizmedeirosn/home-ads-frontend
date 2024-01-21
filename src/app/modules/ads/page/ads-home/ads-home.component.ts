@@ -131,11 +131,16 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.$destroy))
             .subscribe({
                 next: () => {
-                    this.$loaded.next(false);
-                    setTimeout(() => {
-                        this.setAllAdsWithApi(this.totalAds.length - (this.totalAds.length % 8), this.totalAds.length);
-                        this.$loaded.next(true);
-                    }, 1000);
+                    if (this.adsService.changesOn) {
+                        this.adsService.changesOn = false;
+                        this.$loaded.next(false);
+                        setTimeout(() => {
+                            // gambiarra, o + 1 é devido a adição que nao é detectado pelo leght pq arequisição ainda n teve uma resposta, arrumar depois;
+                            this.setAllAdsWithApi(this.totalAds.length - (this.totalAds.length % 8), this.totalAds.length + 1);
+
+                            this.$loaded.next(true);
+                        }, 1000);
+                    }
                 }
             });
     }

@@ -8,10 +8,6 @@
         styleClass="shadow-3 mt-3 zoomin animation-interation-1 animation-duration-1000 animaion-ease-in-out text-center"
         [style]="{
             width: '50rem',
-            'border-top': 'solid',
-            'border-top-width': '15px',
-            'border-top-color': 'var(--blue-1)',
-            'border-top-radius': '10px'
         }"
         header="{{ selectedAd.title }}"
     >
@@ -46,7 +42,7 @@
                     <img
                         src="{{ selectedAd.imageLink }}"
                         [alt]="selectedAd.title"
-                        class="image-card"
+                        class="image-card-view"
                     />
                 </div>
                 <div

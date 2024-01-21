@@ -23,8 +23,8 @@ export class NewAdFormComponent {
 
     private priceValidadorAsync(control: AbstractControl): Observable<ValidationErrors | null> {
         const value: string = String(control.value);
-        const validatorPattern: RegExp = /^\d+(\.\d{3})*(,\d{1,2})?$/;
-        if (value.length <= 0 || value.length > 15 || !validatorPattern.test(value)) {
+        const validatorPattern: RegExp = /^\d+(\.\d{1,2})?$/;
+        if (value.length <= 0 || value.length > 15 || !validatorPattern.test(value) || Number(value) < 1) {
             return of({ priceValidadorAsync: true });
         }
         return of(null);
@@ -79,7 +79,7 @@ export class NewAdFormComponent {
             const adResquest = {
                 title: this.newAdForm.value.title as string,
                 comment: this.newAdForm.value.comment as string,
-                averagePrice: Number(this.newAdForm.value.averagePrice?.replace(',', '.')),
+                averagePrice: Number(String(this.newAdForm.value.averagePrice).replace(',', '.')),
                 rating: Number(this.newAdForm.value.rating),
                 categoryCode,
                 publicationDate: new Date().toISOString(),
@@ -100,7 +100,7 @@ export class NewAdFormComponent {
                     }
                 }
             );
-
+            this.adsSerivce.changesOn = true;
             this.customDialogService.close();
         }
     }

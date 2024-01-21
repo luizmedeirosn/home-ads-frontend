@@ -17,10 +17,13 @@ export class AdsService implements OnDestroy {
     private readonly $destroy: Subject<void> = new Subject();
 
     private API_URL: string = environment.API_URL;
-    public ads!: Array<AdDataMinDTO>;
+
     public filterCategoryActivated!: { activated: boolean; category: AdCategoryEnum | undefined };
 
+    public ads!: Array<AdDataMinDTO>;
     public selectedAd!: AdDataFullDTO;
+
+    public changesOn: boolean = false;
 
     public constructor(
         private primeFilterService: FilterService,
