@@ -34,30 +34,17 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
-        setTimeout(() => {
-            this.$loaded.next(true);
-            this.messageService.clear();
-            this.messageService.add({
-                key: 'center',
-                severity: 'success',
-                summary: 'Sucesso',
-                detail: 'Anúncios carregados com sucesso!',
-                life: 2500,
-            });
-        }, 1500);
-
-        this.setAllAdsWithApi(0, 9);
+        this.setAdsWithApi();
     }
 
-    private setAllAdsWithApi(pageBeginElement: number, pageLastElement: number): void {
+    private setAdsWithApi(): void {
         this.adsService
-            .findAllAds()
+            .findAll()
             .pipe(takeUntil(this.$destroy))
             .subscribe({
                 next: (ads: AdDataMinDTO[]) => {
                     if (ads.length > 0) {
                         this.totalAds = ads;
-                        this.adsPage = ads.slice(pageBeginElement, pageLastElement);
                     }
                 },
                 error: (err) => {
@@ -87,7 +74,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             );
         } else {
             this.adsService
-                .findAllAds()
+                .findAll()
                 .pipe(takeUntil(this.$destroy))
                 .subscribe({
                     next: (ads: AdDataMinDTO[]) => {
@@ -118,10 +105,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             NewAdFormComponent,
             {
                 header: 'Cadastre de um novo anúncio',
-                width: '50%',
-                contentStyle: {
-                    overflow: 'hidden',
-                },
+                width: '40rem',
                 baseZIndex: 10000,
                 maximizable: true,
             }
@@ -129,19 +113,13 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
 
         this.dynamicDialogRef.onClose
             .pipe(takeUntil(this.$destroy))
-            .subscribe({
-                next: () => {
-                    if (this.adsService.changesOn) {
-                        this.adsService.changesOn = false;
-                        this.$loaded.next(false);
-                        setTimeout(() => {
-                            // gambiarra, o + 1 é devido a adição que nao é detectado pelo leght pq arequisição ainda n teve uma resposta, arrumar depois;
-                            this.setAllAdsWithApi(this.totalAds.length - (this.totalAds.length % 9), this.totalAds.length + 1);
+            .subscribe(() => {
+                this.setAdsWithApi();
 
-                            this.$loaded.next(true);
-                        }, 1000);
-                    }
-                }
+                this.$loaded.next(false);
+                setTimeout(() => {
+                    this.$loaded.next(true);
+                }, 1500);
             });
     }
 

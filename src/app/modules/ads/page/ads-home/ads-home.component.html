@@ -1,9 +1,10 @@
 <app-sidebar-navigation></app-sidebar-navigation>
 
-<div *ngIf="$loaded | async; else loading">
+<div>
     <app-ads-list
         [totalAds]="totalAds"
         [adsPage]="adsPage"
+        [$loaded]="$loaded"
         ($onInputChangeEvent)="handleOnInputChangeAction($event)"
         ($onDropdownChangeEvent)="handleOnDropdownChangeAction($event)"
         ($onPageChangeEvent)="handleOnPageChangeAction($event)"
@@ -11,7 +12,3 @@
         ($adViewDetailsEvent)="handleAdViewDetailsAction($event)"
     ></app-ads-list>
 </div>
-
-<ng-template #loading>
-    <app-loading></app-loading>
-</ng-template>

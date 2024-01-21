@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AdsService } from 'src/app/services/ads/ads.service';
 
-import { HttpClient } from '@angular/common/http';
 import { IconDefinition, faUpload } from '@fortawesome/free-solid-svg-icons';
-import { BehaviorSubject, Observable, of, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, of, takeUntil } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { AdDataFullDTO } from 'src/app/models/interfaces/response/AdDataFullDTO';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
@@ -17,7 +15,9 @@ import { UserService } from 'src/app/services/user/user.service';
     templateUrl: './new-ad-form.component.html',
     styleUrls: []
 })
-export class NewAdFormComponent {
+export class NewAdFormComponent implements OnDestroy {
+
+    private readonly $destroy: Subject<void> = new Subject();
 
     public readonly faUploadIcon: IconDefinition = faUpload;
     public $viewSelectedImage: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -51,10 +51,8 @@ export class NewAdFormComponent {
         private adsSerivce: AdsService,
         private messageService: MessageService,
         private formBuilder: FormBuilder,
-        private dynamicDialogConfig: DynamicDialogConfig,
         private customDialogService: CustomDialogService,
         private userService: UserService,
-        private httpClient: HttpClient
     ) { }
 
 
@@ -89,7 +87,7 @@ export class NewAdFormComponent {
             };
 
             this.adsSerivce.save(adResquest)
-                .pipe(take(1))
+                .pipe(takeUntil(this.$destroy))
                 .subscribe({
                     next: (newAd: AdDataFullDTO) => {
                         if (newAd) {
@@ -101,8 +99,8 @@ export class NewAdFormComponent {
                                 life: 2500,
                             });
 
-                            this.adsSerivce.changesOn = true;
-
+                            this.adsSerivce.$changesOn.next(true);
+                            this.customDialogService.close();
                         }
                     },
                     error: (err) => {
@@ -114,12 +112,10 @@ export class NewAdFormComponent {
                             detail: 'Não foi possível cadastrar o anúncio!',
                             life: 2500,
                         });
-                        this.adsSerivce.changesOn = false;
-
+                        this.adsSerivce.$changesOn.next(false);
+                        this.customDialogService.close();
                     }
                 });
-
-            this.customDialogService.close();
         }
     }
 
@@ -128,6 +124,11 @@ export class NewAdFormComponent {
             this.image = $event.target.files[0];
             this.$viewSelectedImage.next(true);
         }
+    }
+
+    public ngOnDestroy(): void {
+        this.$destroy.next();
+        this.$destroy.complete();
     }
 
 }

@@ -22,7 +22,7 @@ export class HomePageComponent implements OnInit {
     public ngOnInit(): void {
         setTimeout(() => this.$loaded.next(true), 1500);
         this.adsService
-            .findAllAds()
+            .findAll()
             .pipe(takeUntil(this.$destroy))
             .subscribe((ads) => {
                 if (ads.length > 0) {

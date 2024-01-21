@@ -23,8 +23,10 @@
                         />
                     </div>
                     <div>
-                        <h3 class="mb-1">{{ ad.title | shorten : 20 }}</h3>
-                        <h3 class="mt-0 mb-3 text-green-700">
+                        <h3 class="mb-1 font-bold">
+                            {{ ad.title | shorten : 20 }}
+                        </h3>
+                        <h3 class="mt-0 mb-3 text-green-700 font-bold">
                             Preço médio:
                             {{ ad.averagePrice | currency : "BRL" }}
                         </h3>
@@ -38,20 +40,20 @@
                             [stars]="5"
                         ></p-rating>
                         <div
-                            class="flex justify-content-center align-items-center text-lg font-medium gap-2"
+                            class="flex justify-content-center align-items-center text-lg font-bold gap-2"
                         >
                             <fa-icon
                                 [icon]="faCategoryIcon"
                                 size="lg"
                                 [styles]="{ color: 'var(--gray-900)' }"
                             ></fa-icon>
-                            <span>{{ ad.category }}</span>
+                            <span class="font-bold">{{ ad.category }}</span>
                         </div>
                         <div class="car-buttons mt-3">
                             <p-button
                                 type="button"
                                 label="Mais informações"
-                                styleClass="p-button p-button-rounded mr-2 gap-2 align-items-center bg-indigo-800 hover:bg-indigo-900"
+                                styleClass="p-button p-button-rounded mr-2 gap-2 font-bold align-items-center bg-indigo-800 hover:bg-indigo-900"
                             >
                                 <fa-icon
                                     [icon]="faSearchIcon"

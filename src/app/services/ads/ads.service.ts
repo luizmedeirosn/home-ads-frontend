@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { FilterService } from 'primeng/api';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { PostAdDTO } from 'src/app/models/interfaces/request/PostAdDTO';
 import { AdDataMinDTO } from 'src/app/models/interfaces/response/AdDataMinDTO';
@@ -23,7 +23,7 @@ export class AdsService implements OnDestroy {
     public ads!: Array<AdDataMinDTO>;
     public selectedAd!: AdDataFullDTO;
 
-    public changesOn: boolean = false;
+    public $changesOn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     public constructor(
         private primeFilterService: FilterService,
@@ -36,7 +36,7 @@ export class AdsService implements OnDestroy {
             .subscribe((ads) => this.ads = ads);
     }
 
-    public findAllAds(): Observable<Array<AdDataMinDTO>> {
+    public findAll(): Observable<Array<AdDataMinDTO>> {
         return this.httpClient.get<Array<AdDataMinDTO>>(
             `${this.API_URL}/api/ads`,
         );

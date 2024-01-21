@@ -1,4 +1,7 @@
-<div class="flex flex-column align-items-center">
+<div
+    *ngIf="($loaded | async) && totalAds; else loading"
+    class="flex flex-column align-items-center"
+>
     <p-card
         styleClass="shadow-none mt-3 zoomin animation-interation-1 animation-duration-1000 animaion-ease-in-out"
         [style]="{ width: '80rem' }"
@@ -30,7 +33,7 @@
                 pTooltip="Cadastre um novo anúncio"
                 tooltipPosition="top"
                 label="Adicionar"
-                styleClass="bg-indigo-800 hover:bg-indigo-900 gap-3 text-lg flex align-items-center"
+                styleClass="flex align-items-center gap-3 text-lg font-bold  bg-indigo-800 hover:bg-indigo-900"
                 [raised]="true"
                 (onClick)="handleAddAdEvent()"
             >
@@ -55,7 +58,7 @@
                 </div>
                 <div>
                     <h3 class="mb-1">{{ ad.title | shorten : 28 }}</h3>
-                    <h3 class="mt-0 mb-3 text-green-700">
+                    <h3 class="mt-0 mb-3 text-green-700 font-bold">
                         Preço médio: {{ ad.averagePrice | currency : "BRL" }}
                     </h3>
                     <p-rating
@@ -75,13 +78,13 @@
                             size="lg"
                             [styles]="{ color: 'var(--gray-900)' }"
                         ></fa-icon>
-                        <span>{{ ad.category }}</span>
+                        <span class="font-bold">{{ ad.category }}</span>
                     </div>
                     <div class="car-buttons mt-3">
                         <p-button
                             type="button"
                             label="Mais informações"
-                            styleClass="p-button p-button-rounded mr-2 gap-2 align-items-center bg-indigo-800 hover:bg-indigo-900"
+                            styleClass="p-button p-button-rounded mr-2 gap-2 font-bold align-items-center bg-indigo-800 hover:bg-indigo-900"
                             (onClick)="handleAdViewDetailsEvent(ad.id)"
                         >
                             <fa-icon [icon]="faSearchIcon" size="lg"></fa-icon>
@@ -92,6 +95,7 @@
         </div>
 
         <p-paginator
+            #paginator
             *ngIf="totalAds.length > 0"
             (onPageChange)="handleOnPageChangeEvent($event)"
             [first]="0"
@@ -114,3 +118,7 @@
         </ng-template>
     </p-card>
 </div>
+
+<ng-template #loading>
+    <app-loading></app-loading>
+</ng-template>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import {
     IconDefinition,
     faPlus,
@@ -6,20 +6,26 @@ import {
     faTag,
     faX,
 } from '@fortawesome/free-solid-svg-icons';
-import { PaginatorState } from 'primeng/paginator';
+import { MessageService } from 'primeng/api';
+import { Paginator, PaginatorState } from 'primeng/paginator';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
 import { AdDataMinDTO } from 'src/app/models/interfaces/response/AdDataMinDTO';
+import { AdsService } from 'src/app/services/ads/ads.service';
 
 @Component({
     selector: 'app-ads-list',
     templateUrl: './ads-list.component.html',
     styleUrls: [],
 })
-export class AdsListComponent implements OnInit {
+export class AdsListComponent implements OnInit, OnDestroy {
+
+    private $destroy: Subject<void> = new Subject();
 
     @Input() public totalAds!: Array<AdDataMinDTO>;
     @Input() public adsPage!: Array<AdDataMinDTO>;
     @Input() public keyWord!: string;
+    @Input() public $loaded!: BehaviorSubject<boolean>;
 
     @Output() public $onInputChangeEvent: EventEmitter<{
         keyWord: string;
@@ -33,6 +39,8 @@ export class AdsListComponent implements OnInit {
     }> = new EventEmitter();
     @Output() public $addAdEvent: EventEmitter<void> = new EventEmitter();
     @Output() public $adViewDetailsEvent: EventEmitter<{ id: number }> = new EventEmitter();
+
+    @ViewChild('paginator') paginator!: Paginator;
 
     public readonly faCategoryIcon: IconDefinition = faTag;
     public readonly faSearchIcon: IconDefinition = faSearch;
@@ -50,11 +58,50 @@ export class AdsListComponent implements OnInit {
     ];
     public selectedCategory!: { category: string };
 
+    public constructor(
+        private messageService: MessageService,
+        private adsService: AdsService
+    ) { }
+
     public ngOnInit(): void {
-        this.$onPageChangeEvent.emit({
-            begin: 0,
-            end: 9
-        });
+        setTimeout(() => {
+            this.$loaded.next(true);
+
+            this.messageService.clear();
+            this.messageService.add({
+                key: 'center',
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: 'Anúncios carregados com sucesso!',
+                life: 2500,
+            });
+
+            this.$onPageChangeEvent.emit({
+                begin: 0,
+                end: 9
+            });
+
+        }, 1500);
+
+        this.adsService.$changesOn
+            .pipe(takeUntil(this.$destroy))
+            .subscribe({
+                next: (changesOn: boolean) => {
+                    if (changesOn) {
+                        setTimeout(() => {
+                            const length = this.totalAds.length + 1;
+                            const numberPage = length % 9 > 0 ? Math.floor(length / 9) : Math.floor(length / 9) + 1;
+                            this.paginator.changePage(numberPage);
+
+                            this.$onPageChangeEvent.emit({
+                                begin: this.totalAds.length - (this.totalAds.length % 9),
+                                end: this.totalAds.length
+                            })
+                        }, 1600);
+                    }
+                },
+                error: err => console.log(err)
+            });
     }
 
     public handleDropdownChangeEvent(): void {
@@ -102,4 +149,10 @@ export class AdsListComponent implements OnInit {
     public handleAddAdEvent(): void {
         this.$addAdEvent.emit();
     }
+
+    ngOnDestroy(): void {
+        this.$destroy.next();
+        this.$destroy.complete();
+    }
+
 }

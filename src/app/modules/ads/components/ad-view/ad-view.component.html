@@ -48,7 +48,7 @@
                 <div
                     class="flex flex-column align-items-center justify-content-center"
                 >
-                    <h3 class="mt-0 mb-3 text-green-700">
+                    <h3 class="mt-0 mb-3 text-green-700 font-bold">
                         Preço médio:
                         {{ selectedAd.averagePrice | currency : "BRL" }}
                     </h3>
@@ -83,14 +83,17 @@
                 </div>
             </div>
 
-            <p-fieldset legend="Comentários sobre o produto">
-                <p class="m-0 text-justify">
+            <p-fieldset
+                styleClass="font-bold"
+                legend="Comentários sobre o produto"
+            >
+                <p class="m-0 text-justify font-medium">
                     {{ selectedAd.comment }}
                 </p>
             </p-fieldset>
 
             <div class="flex justify-content-end w-full">
-                <span class="text-blue-700"
+                <span class="text-blue-700 font-medium"
                     >Cadastrado por {{ selectedAd.userEmail }} em
                     {{ selectedAd.publicationDate | date : "dd/MM/yyyy" }}</span
                 >

@@ -26,10 +26,7 @@
 
     <div class="flex justify-content-between align-items-end">
         <p-dropdown
-            styleClass="dropdown lg:30rem"
-            [style]="{
-                width: '25vw'
-            }"
+            styleClass="dropdown w-18rem"
             [options]="categories"
             placeholder="Selecione a categoria"
             formControlName="category"
@@ -52,7 +49,7 @@
         </span>
     </div>
 
-    <div class="flex justify-content-start align-content-center mt-1 gap-2">
+    <div class="flex justify-content-start align-content-center mt-3 gap-2">
         <span class="text-lg font-medium">Atribua uma nota:</span>
         <p-rating
             formControlName="rating"
@@ -61,12 +58,14 @@
         ></p-rating>
     </div>
 
-    <div class="flex flex-column justify-content-start align-items-start gap-3">
+    <div
+        class="flex flex-column justify-content-start align-items-start mt-1 gap-3"
+    >
         <label
             pRipple
             pButton
             for="input-file"
-            class="bg-gray-600 hover:bg-gray-800 w-4 p-1 shadow-1 flex justify-content-center align-items-center gap-2"
+            class="bg-gray-600 hover:bg-gray-800 w-13rem p-1 shadow-1 flex justify-content-center align-items-center gap-2"
         >
             <fa-icon [icon]="faUploadIcon"></fa-icon>
             Escolha uma imagem</label
@@ -82,12 +81,12 @@
             id="input-file"
             style="display: none"
             (change)="handleUploadAdImage($event)"
-            accept=".jpg, .jpeg, .png .webp"
+            accept=".jpg, .jpeg, .png, .webp"
         />
     </div>
 
     <div
-        class="flex flex justify-content-center align-content-center align-items-center mt-4"
+        class="flex justify-content-center align-content-center align-items-center mt-4"
     >
         <p-button
             [disabled]="!newAdForm.valid || image === undefined"
