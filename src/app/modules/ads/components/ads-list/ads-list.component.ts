@@ -53,7 +53,7 @@ export class AdsListComponent implements OnInit {
     public ngOnInit(): void {
         this.$onPageChangeEvent.emit({
             begin: 0,
-            end: 8
+            end: 9
         });
     }
 

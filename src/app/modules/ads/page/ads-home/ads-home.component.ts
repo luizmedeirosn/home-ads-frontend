@@ -46,7 +46,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             });
         }, 1500);
 
-        this.setAllAdsWithApi(0, 8);
+        this.setAllAdsWithApi(0, 9);
     }
 
     private setAllAdsWithApi(pageBeginElement: number, pageLastElement: number): void {
@@ -71,7 +71,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             this.adsService.findByKeyWord($event.keyWord).then(
                 (ads) => {
                     this.totalAds = ads;
-                    this.adsPage = ads.slice(0, 8);
+                    this.adsPage = ads.slice(0, 9);
                 }
             );
         }
@@ -82,7 +82,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
             this.adsService.findByCategory($event.category).then(
                 (ads) => {
                     this.totalAds = ads;
-                    this.adsPage = ads.slice(0, 8);
+                    this.adsPage = ads.slice(0, 9);
                 }
             );
         } else {
@@ -93,7 +93,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
                     next: (ads: AdDataMinDTO[]) => {
                         if (ads.length > 0) {
                             this.totalAds = ads;
-                            this.adsPage = ads.slice(0, 8);
+                            this.adsPage = ads.slice(0, 9);
                             this.adsService.filterCategoryActivated = {
                                 activated: false,
                                 category: undefined
@@ -136,7 +136,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
                         this.$loaded.next(false);
                         setTimeout(() => {
                             // gambiarra, o + 1 é devido a adição que nao é detectado pelo leght pq arequisição ainda n teve uma resposta, arrumar depois;
-                            this.setAllAdsWithApi(this.totalAds.length - (this.totalAds.length % 8), this.totalAds.length + 1);
+                            this.setAllAdsWithApi(this.totalAds.length - (this.totalAds.length % 9), this.totalAds.length + 1);
 
                             this.$loaded.next(true);
                         }, 1000);

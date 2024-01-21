@@ -1,7 +1,7 @@
 <div class="flex flex-column align-items-center">
     <p-card
         styleClass="shadow-none mt-3 zoomin animation-interation-1 animation-duration-1000 animaion-ease-in-out"
-        [style]="{ width: '90rem' }"
+        [style]="{ width: '80rem' }"
         header="Anúncios"
     >
         <div class="flex justify-content-between align-items-center m-3">
@@ -95,7 +95,7 @@
             *ngIf="totalAds.length > 0"
             (onPageChange)="handleOnPageChangeEvent($event)"
             [first]="0"
-            [rows]="8"
+            [rows]="9"
             [totalRecords]="totalAds.length"
             styleClass="paginator"
         ></p-paginator>
