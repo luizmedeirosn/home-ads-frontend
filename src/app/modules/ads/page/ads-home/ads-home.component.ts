@@ -120,7 +120,7 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
                 header: 'Cadastre de um novo anúncio',
                 width: '50%',
                 contentStyle: {
-                    overflow: 'auto',
+                    overflow: 'hidden',
                 },
                 baseZIndex: 10000,
                 maximizable: true,

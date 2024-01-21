@@ -100,7 +100,7 @@ export class AdsService implements OnDestroy {
         );
     }
 
-    public save(adRequest: PostAdDTO): Promise<AdDataFullDTO> {
+    public save(adRequest: PostAdDTO): Observable<AdDataFullDTO> {
         const httpsOptions = {
             headers: new HttpHeaders({
                 'Authorization': `Bearer ${this.cookieService.get('JWT_TOKEN')}`
@@ -118,23 +118,11 @@ export class AdsService implements OnDestroy {
         formData.append('userId', String(adRequest.userId));
 
 
-        return new Promise((resolve, reject) => {
-            this.httpClient.post<AdDataFullDTO>(
-                `${this.API_URL}/api/ads`,
-                formData,
-                httpsOptions
-            )
-                .pipe(takeUntil(this.$destroy))
-                .subscribe({
-                    next: (ad) => {
-                        resolve(ad);
-                    },
-                    error: (err) => {
-                        console.log(err);
-                        reject(err);
-                    }
-                });
-        });
+        return this.httpClient.post<AdDataFullDTO>(
+            `${this.API_URL}/api/ads`,
+            formData,
+            httpsOptions
+        );
     }
 
     public ngOnDestroy(): void {

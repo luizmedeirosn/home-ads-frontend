@@ -5,11 +5,12 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AdsService } from 'src/app/services/ads/ads.service';
 
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { IconDefinition, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { BehaviorSubject, Observable, of, take } from 'rxjs';
 import { AdCategoryEnum } from 'src/app/models/enums/AdCategoriesEnum';
+import { AdDataFullDTO } from 'src/app/models/interfaces/response/AdDataFullDTO';
 import { CustomDialogService } from 'src/app/modules/shared/services/dialog/custom-dialog.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { IconDefinition, faUpload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-new-ad-form',
@@ -87,20 +88,37 @@ export class NewAdFormComponent {
                 userId: Number(this.userService.getUserId()),
             };
 
-            this.adsSerivce.save(adResquest).then(
-                (ad) => {
-                    if (ad) {
+            this.adsSerivce.save(adResquest)
+                .pipe(take(1))
+                .subscribe({
+                    next: (newAd: AdDataFullDTO) => {
+                        if (newAd) {
+                            this.newAdForm.reset();
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Sucesso',
+                                detail: 'Anúncio cadastrado com sucesso!',
+                                life: 2500,
+                            });
+
+                            this.adsSerivce.changesOn = true;
+
+                        }
+                    },
+                    error: (err) => {
+                        console.log(err)
                         this.newAdForm.reset();
                         this.messageService.add({
-                            severity: 'success',
-                            summary: 'Sucesso',
-                            detail: 'Anúncio cadastrado com sucesso!',
+                            severity: 'error',
+                            summary: 'Erro',
+                            detail: 'Não foi possível cadastrar o anúncio!',
                             life: 2500,
                         });
+                        this.adsSerivce.changesOn = false;
+
                     }
-                }
-            );
-            this.adsSerivce.changesOn = true;
+                });
+
             this.customDialogService.close();
         }
     }
