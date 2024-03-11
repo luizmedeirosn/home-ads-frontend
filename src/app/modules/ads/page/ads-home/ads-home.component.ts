@@ -114,12 +114,14 @@ export class AdsHomeComponent implements OnInit, OnDestroy {
         this.dynamicDialogRef.onClose
             .pipe(takeUntil(this.$destroy))
             .subscribe(() => {
-                this.setAdsWithApi();
+                if (!this.adsService.$changesOn) {
+                    this.setAdsWithApi();
 
-                this.$loaded.next(false);
-                setTimeout(() => {
-                    this.$loaded.next(true);
-                }, 1500);
+                    this.$loaded.next(false);
+                    setTimeout(() => {
+                        this.$loaded.next(true);
+                    }, 1500);
+                }
             });
     }
 
