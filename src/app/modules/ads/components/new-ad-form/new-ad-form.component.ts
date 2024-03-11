@@ -98,7 +98,7 @@ export class NewAdFormComponent implements OnDestroy {
                                 detail: 'Anúncio cadastrado com sucesso!',
                                 life: 2500,
                             });
-
+                            
                             this.adsSerivce.$changesOn.next(true);
                             this.customDialogService.close();
                         }
